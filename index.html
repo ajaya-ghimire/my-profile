@@ -87,6 +87,36 @@
             margin: 0 0 0.5rem;
         }
 
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #d1c4e9;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .contact-form button {
+            background-color: #512da8;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #673ab7;
+        }
+
         footer {
             text-align: center;
             padding: 1rem 0;
@@ -117,6 +147,7 @@
         <a href="#home">Home</a>
         <a href="#apps">My Apps</a>
         <a href="#about">About Me</a>
+        <a href="#contact">Contact Us</a>
     </nav>
 
     <div class="container">
@@ -142,7 +173,6 @@
                     <h3>App 3</h3>
                     <p>Description of App 3.</p>
                 </div>
-                <!-- Add more app blocks as needed -->
             </div>
         </section>
 
@@ -150,6 +180,18 @@
         <section id="about" class="about-section">
             <h2>About Me</h2>
             <p>Hello! I'm Ajaya Ghimire, a computer science student with a passion for creating innovative applications. My goal is to solve real-world problems through technology. Feel free to explore my work and reach out to me for collaboration!</p>
+        </section>
+
+        <!-- Contact Us Section -->
+        <section id="contact" class="contact-section">
+            <h2>Contact Us</h2>
+            <p>If you have any questions, feedback, or collaboration ideas, feel free to reach out through the form below!</p>
+            <form class="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
         </section>
     </div>
 
