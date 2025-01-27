@@ -76,6 +76,7 @@
             flex: 1 1 calc(33.333% - 1rem);
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
+            cursor: pointer;
         }
 
         .app:hover {
@@ -85,36 +86,6 @@
         .app h3 {
             color: #311b92;
             margin: 0 0 0.5rem;
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #d1c4e9;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .contact-form button {
-            background-color: #512da8;
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .contact-form button:hover {
-            background-color: #673ab7;
         }
 
         footer {
@@ -161,9 +132,9 @@
         <section id="apps" class="apps-section">
             <h2>My Apps</h2>
             <div class="app-list">
-                <div class="app">
-                    <h3>App 1</h3>
-                    <p>Description of App 1.</p>
+                <div class="app" onclick="location.href='devanagari-calculator.html'">
+                    <h3>Devanagari Calculator</h3>
+                    <p>A calculator app with Devanagari numerals for native users.</p>
                 </div>
                 <div class="app">
                     <h3>App 2</h3>
@@ -186,12 +157,6 @@
         <section id="contact" class="contact-section">
             <h2>Contact Us</h2>
             <p>If you have any questions, feedback, or collaboration ideas, feel free to reach out through the form below!</p>
-            <form class="contact-form">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
         </section>
     </div>
 
