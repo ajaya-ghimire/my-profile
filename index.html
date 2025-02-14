@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Ajaya Ghimire - Portfolio Website">
     <title>Ajaya Ghimire - Portfolio</title>
     <style>
         body {
@@ -54,6 +52,7 @@
             background-color: #ffffff;
             border-radius: 8px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
         }
 
         h2 {
@@ -63,49 +62,12 @@
             margin-bottom: 1rem;
         }
 
-        .app-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .app {
-            background: linear-gradient(to bottom, #ede7f6, #d1c4e9);
-            border-radius: 8px;
-            padding: 1rem;
-            flex: 1 1 calc(33.333% - 1rem);
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
-
-        .app:hover {
-            transform: translateY(-5px);
-        }
-
-        .app h3 {
-            color: #311b92;
-            margin: 0 0 0.5rem;
-        }
-
         footer {
             text-align: center;
             padding: 1rem 0;
             background: linear-gradient(to right, #512da8, #673ab7);
             color: white;
             margin-top: 2rem;
-        }
-
-        @media (max-width: 768px) {
-            .app {
-                flex: 1 1 calc(50% - 1rem);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .app {
-                flex: 1 1 100%;
-            }
         }
     </style>
 </head>
@@ -115,49 +77,15 @@
     </header>
     
     <nav>
-        <a href="#home">Home</a>
-        <a href="#apps">My Apps</a>
-        <a href="#about">About Me</a>
-        <a href="#contact">Contact Us</a>
+        <a href="index.html">Home</a>
+        <a href="apps.html">My Apps</a>
+        <a href="about.html">About Me</a>
+        <a href="contact.html">Contact</a>
     </nav>
 
     <div class="container">
-        <!-- Home Section -->
-        <section id="home" class="home-section">
-            <h2>Welcome to My Portfolio</h2>
-            <p>Explore my published apps and learn more about me.</p>
-        </section>
-
-        <!-- My Apps Section -->
-        <section id="apps" class="apps-section">
-            <h2>My Apps</h2>
-            <div class="app-list">
-                <div class="app" onclick="location.href='devanagari-calculator.html'">
-                    <h3>Devanagari Calculator</h3>
-                    <p>A calculator app with Devanagari numerals for native users.</p>
-                </div>
-                <div class="app">
-                    <h3>App 2</h3>
-                    <p>Description of App 2.</p>
-                </div>
-                <div class="app">
-                    <h3>App 3</h3>
-                    <p>Description of App 3.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Me Section -->
-        <section id="about" class="about-section">
-            <h2>About Me</h2>
-            <p>Hello! I'm Ajaya Ghimire, a computer science student with a passion for creating innovative applications. My goal is to solve real-world problems through technology. Feel free to explore my work and reach out to me for collaboration!</p>
-        </section>
-
-        <!-- Contact Us Section -->
-        <section id="contact" class="contact-section">
-            <h2>Contact Us</h2>
-            <p>If you have any questions, feedback, or collaboration ideas, feel free to reach out through the form below!</p>
-        </section>
+        <h2>Welcome to My Portfolio</h2>
+        <p>Explore my published apps and learn more about me.</p>
     </div>
 
     <footer>
