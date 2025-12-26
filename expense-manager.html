@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expense Manager</title>
+
+<style>
+/* ===== LIGHT THEME ===== */
+:root {
+  --bg: #f8f9fa;
+  --text: #222;
+  --card: #ffffff;
+  --btn: #007bff;
+  --btn-text: white;
+}
+
+/* ===== DARK THEME ===== */
+.dark {
+  --bg: #343a40;
+  --text: white;
+  --card: #2b2f33;
+  --btn: #6c757d;
+  --btn-text: white;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+
+.app {
+  width: 100%;
+  max-width: 700px;
+  background: var(--card);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+h1 {
+  text-align: center;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+input, select, button {
+  padding: 10px;
+  font-size: 1rem;
+}
+
+button {
+  background: var(--btn);
+  color: var(--btn-text);
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.list {
+  margin-top: 20px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.total {
+  font-weight: bold;
+  margin-top: 15px;
+  text-align: right;
+}
+
+.theme-toggle {
+  text-align: right;
+  margin-bottom: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app" id="app">
+  <div class="theme-toggle">
+    <button onclick="toggleTheme()">Toggle Theme</button>
+  </div>
+
+  <h1>Expense Manager</h1>
+
+  <div class="controls">
+    <input type="text" id="name" placeholder="Expense name">
+    <input type="number" id="amount" placeholder="Amount">
+    <select id="category">
+      <option>Food</option>
+      <option>Transport</option>
+      <option>Shopping</option>
+      <option>Utilities</option>
+      <option>Other</option>
+    </select>
+  </div>
+
+  <button onclick="addExpense()">Add Expense</button>
+
+  <div class="list" id="list"></div>
+
+  <div class="total" id="total">Total: $0.00</div>
+</div>
+
+<script>
+let expenses = [];
+let dark = false;
+
+function addExpense() {
+  const name = document.getElementById("name").value;
+  const amount = parseFloat(document.getElementById("amount").value);
+  const category = document.getElementById("category").value;
+
+  if (!name || isNaN(amount)) {
+    alert("Please enter valid values");
+    return;
+  }
+
+  expenses.push({ name, amount, category });
+  document.getElementById("name").value = "";
+  document.getElementById("amount").value = "";
+
+  render();
+}
+
+function render() {
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+
+  let total = 0;
+
+  expenses.forEach((e, index) => {
+    total += e.amount;
+    const row = document.createElement("div");
+    row.className = "item";
+    row.innerHTML = `
+      <span>${e.name} (${e.category})</span>
+      <span>$${e.amount.toFixed(2)}</span>
+    `;
+    list.appendChild(row);
+  });
+
+  document.getElementById("total").innerText =
+    "Total: $" + total.toFixed(2);
+}
+
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+}
+</script>
+
+</body>
+</html>
