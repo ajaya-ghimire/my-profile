@@ -1,174 +1,1204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Expense Manager</title>
-
-<style>
-/* ===== LIGHT THEME ===== */
-:root {
-  --bg: #f8f9fa;
-  --text: #222;
-  --card: #ffffff;
-  --btn: #007bff;
-  --btn-text: white;
-}
-
-/* ===== DARK THEME ===== */
-.dark {
-  --bg: #343a40;
-  --text: white;
-  --card: #2b2f33;
-  --btn: #6c757d;
-  --btn-text: white;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  display: flex;
-  justify-content: center;
-  padding: 30px;
-}
-
-.app {
-  width: 100%;
-  max-width: 700px;
-  background: var(--card);
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-h1 {
-  text-align: center;
-}
-
-.controls {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-input, select, button {
-  padding: 10px;
-  font-size: 1rem;
-}
-
-button {
-  background: var(--btn);
-  color: var(--btn-text);
-  border: none;
-  cursor: pointer;
-  border-radius: 6px;
-}
-
-button:hover {
-  opacity: 0.9;
-}
-
-.list {
-  margin-top: 20px;
-}
-
-.item {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px;
-  border-bottom: 1px solid #ccc;
-}
-
-.total {
-  font-weight: bold;
-  margin-top: 15px;
-  text-align: right;
-}
-
-.theme-toggle {
-  text-align: right;
-  margin-bottom: 10px;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FinTrack — Personal Finance Manager</title>
+  <style>
+    :root{
+      --bg:#f8f9fa; --text:#1f2937; --card:#ffffff; --muted:#6b7280;
+      --accent:#2563eb; --accent2:#7c3aed; --danger:#ef4444; --ok:#16a34a;
+      --border:#e5e7eb;
+      --shadow: 0 10px 24px rgba(0,0,0,.12);
+    }
+    .dark{
+      --bg:#0b1220; --text:#e5e7eb; --card:#0f1a2e; --muted:#9ca3af;
+      --accent:#60a5fa; --accent2:#a78bfa; --danger:#fb7185; --ok:#34d399;
+      --border:#22314a;
+      --shadow: 0 10px 24px rgba(0,0,0,.35);
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: linear-gradient(180deg, rgba(124,58,237,.10), rgba(37,99,235,.06)) , var(--bg);
+      color:var(--text);
+      padding:24px;
+    }
+    .wrap{ max-width:1100px; margin:0 auto; }
+    header{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      margin-bottom:16px;
+    }
+    .brand{
+      display:flex; flex-direction:column; gap:2px;
+    }
+    .brand h1{ margin:0; font-size:22px; letter-spacing:.2px; }
+    .brand p{ margin:0; color:var(--muted); font-size:13px; }
+    .topActions{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+    button, input, select{
+      font:inherit;
+    }
+    .btn{
+      border:1px solid var(--border);
+      background:var(--card);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      box-shadow: none;
+      transition:.15s;
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 18px rgba(0,0,0,.10); }
+    .btn.primary{
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color:white;
+      border: none;
+    }
+    .btn.danger{ background: var(--danger); color:white; border:none; }
+    .btn.ok{ background: var(--ok); color:white; border:none; }
+    .btn.ghost{ background: transparent; }
+    .grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:16px;
+    }
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+    .tabs{
+      display:flex; gap:8px; flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+    .tab{
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background: transparent;
+      cursor:pointer;
+      color:var(--text);
+    }
+    .tab.active{
+      background: linear-gradient(90deg, rgba(37,99,235,.18), rgba(124,58,237,.16));
+      border-color: rgba(124,58,237,.35);
+    }
+    .row{
+      display:grid;
+      grid-template-columns: 1.1fr .6fr .8fr .8fr 1fr;
+      gap:10px;
+      align-items:end;
+    }
+    @media (max-width: 980px){
+      .row{ grid-template-columns: 1fr 1fr; }
+    }
+    label{ font-size:12px; color:var(--muted); display:block; margin-bottom:6px; }
+    input, select{
+      width:100%;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background: transparent;
+      color:var(--text);
+      outline:none;
+    }
+    input::placeholder{ color: rgba(107,114,128,.8); }
+    .help{ color:var(--muted); font-size:12px; margin-top:8px; }
+    .hr{ height:1px; background: var(--border); margin:14px 0; }
+    table{
+      width:100%;
+      border-collapse: collapse;
+      overflow:hidden;
+      border-radius: 12px;
+      border:1px solid var(--border);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid var(--border);
+      text-align:left;
+      font-size:13px;
+      vertical-align: top;
+    }
+    th{ color:var(--muted); font-weight:600; background: rgba(0,0,0,.03); }
+    .dark th{ background: rgba(255,255,255,.04); }
+    tr:last-child td{ border-bottom:none; }
+    .pill{
+      font-size:12px; padding:4px 8px; border-radius:999px;
+      border:1px solid var(--border);
+      display:inline-block;
+      color:var(--muted);
+    }
+    .pill.income{ border-color: rgba(22,163,74,.35); color: var(--ok); }
+    .pill.expense{ border-color: rgba(239,68,68,.35); color: var(--danger); }
+    .pill.debt{ border-color: rgba(124,58,237,.35); color: var(--accent2); }
+    .subActions{ display:flex; gap:8px; flex-wrap:wrap; }
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 980px){ .split{ grid-template-columns: 1fr; } }
+    .kpiGrid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+      margin-top: 10px;
+    }
+    @media (max-width: 700px){ .kpiGrid{ grid-template-columns: 1fr; } }
+    .kpi{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:12px;
+      background: rgba(0,0,0,.02);
+    }
+    .dark .kpi{ background: rgba(255,255,255,.03); }
+    .kpi .t{ font-size:12px; color:var(--muted); }
+    .kpi .v{ font-size:18px; font-weight:700; margin-top:6px; }
+    canvas{ width:100%; height:320px; }
+    .chartBox{ padding:10px; border:1px solid var(--border); border-radius:14px; }
+    .tiny{ font-size:12px; color:var(--muted); }
+    .searchRow{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      margin-bottom:10px;
+    }
+    .searchRow input{ max-width: 320px; }
+    .right{ text-align:right; }
+    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  </style>
 </head>
-
 <body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <h1>FinTrack</h1>
+      <p>Income • Expenses • Debts • Monthly reports — all local in your browser</p>
+    </div>
+    <div class="topActions">
+      <button class="btn" id="themeBtn">Toggle Theme</button>
+      <button class="btn" id="backupBtn">Backup JSON</button>
+      <button class="btn" id="restoreBtn">Restore JSON</button>
+      <button class="btn primary" id="exportBtn">Export CSV</button>
+      <button class="btn danger" id="resetBtn">Reset Data</button>
+      <input type="file" id="restoreFile" accept="application/json" style="display:none"/>
+    </div>
+  </header>
 
-<div class="app" id="app">
-  <div class="theme-toggle">
-    <button onclick="toggleTheme()">Toggle Theme</button>
+  <div class="grid">
+    <!-- Left: Main -->
+    <div class="card">
+      <div class="tabs">
+        <button class="tab active" data-view="transactions">Transactions</button>
+        <button class="tab" data-view="debts">Debts / Mortgages</button>
+        <button class="tab" data-view="reports">Monthly Reports</button>
+      </div>
+
+      <!-- TRANSACTIONS VIEW -->
+      <div id="view-transactions">
+        <div class="row">
+          <div>
+            <label>Type</label>
+            <select id="tType">
+              <option value="income">Income</option>
+              <option value="expense" selected>Expense</option>
+              <option value="debt_payment">Debt Payment</option>
+            </select>
+          </div>
+          <div>
+            <label>Amount</label>
+            <input id="tAmount" type="number" step="0.01" placeholder="e.g., 45.99" />
+          </div>
+          <div>
+            <label>Date</label>
+            <input id="tDate" type="date" />
+          </div>
+          <div>
+            <label>Category</label>
+            <select id="tCategory"></select>
+          </div>
+          <div>
+            <label>Description / Note</label>
+            <input id="tNote" type="text" placeholder="e.g., groceries, rent, paycheck..." />
+          </div>
+        </div>
+
+        <div class="help tiny">
+          Tip: Choose <b>Debt Payment</b> to attach a payment to a debt (select a debt below once you add one).
+        </div>
+
+        <div class="subActions" style="margin-top:12px;">
+          <button class="btn primary" id="saveTxnBtn">Add Transaction</button>
+          <button class="btn" id="clearTxnBtn">Clear</button>
+          <span class="tiny" id="editHint"></span>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="searchRow">
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <input id="searchBox" type="text" placeholder="Search transactions (category, note)..." />
+            <select id="filterMonth"></select>
+          </div>
+          <div class="tiny">Showing <span id="countTxn" class="mono"></span></div>
+        </div>
+
+        <div style="overflow:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th class="right">Amount</th>
+                <th>Note</th>
+                <th class="right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="txnBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- DEBTS VIEW -->
+      <div id="view-debts" style="display:none;">
+        <div class="split">
+          <div class="card" style="box-shadow:none;">
+            <h3 style="margin:0 0 10px 0;">Add Debt / Mortgage</h3>
+            <div class="row" style="grid-template-columns:1fr 1fr 1fr; gap:10px;">
+              <div>
+                <label>Name</label>
+                <input id="dName" type="text" placeholder="e.g., Car Loan" />
+              </div>
+              <div>
+                <label>Balance</label>
+                <input id="dBalance" type="number" step="0.01" placeholder="e.g., 12000" />
+              </div>
+              <div>
+                <label>APR %</label>
+                <input id="dAPR" type="number" step="0.01" placeholder="e.g., 6.5" />
+              </div>
+            </div>
+            <div class="row" style="grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:10px;">
+              <div>
+                <label>Min Payment</label>
+                <input id="dMin" type="number" step="0.01" placeholder="e.g., 220" />
+              </div>
+              <div>
+                <label>Due Day (1–28)</label>
+                <input id="dDue" type="number" min="1" max="28" placeholder="e.g., 15" />
+              </div>
+              <div>
+                <label>Type</label>
+                <select id="dType">
+                  <option value="debt">Debt</option>
+                  <option value="mortgage">Mortgage</option>
+                </select>
+              </div>
+            </div>
+            <div class="subActions" style="margin-top:12px;">
+              <button class="btn primary" id="addDebtBtn">Add Debt</button>
+              <button class="btn" id="clearDebtBtn">Clear</button>
+              <span class="tiny" id="editDebtHint"></span>
+            </div>
+            <div class="help">
+              Debt Payments: go to <b>Transactions</b> → choose <b>Debt Payment</b> and pick the debt in Category.
+            </div>
+          </div>
+
+          <div class="card" style="box-shadow:none;">
+            <h3 style="margin:0 0 10px 0;">Debts List</h3>
+            <div style="overflow:auto;">
+              <table>
+                <thead>
+                <tr>
+                  <th>Name</th>
+                  <th class="right">Balance</th>
+                  <th class="right">APR</th>
+                  <th class="right">Min</th>
+                  <th class="right">Actions</th>
+                </tr>
+                </thead>
+                <tbody id="debtBody"></tbody>
+              </table>
+            </div>
+            <div class="help tiny">
+              Payments reduce balance automatically when you add a <b>Debt Payment</b> transaction.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REPORTS VIEW -->
+      <div id="view-reports" style="display:none;">
+        <div class="searchRow">
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <label class="tiny" style="margin:0;">Month</label>
+            <select id="reportMonth"></select>
+          </div>
+          <div class="tiny">Charts update instantly</div>
+        </div>
+
+        <div class="kpiGrid">
+          <div class="kpi">
+            <div class="t">Income</div>
+            <div class="v mono" id="kpiIncome">$0.00</div>
+          </div>
+          <div class="kpi">
+            <div class="t">Expenses</div>
+            <div class="v mono" id="kpiExpense">$0.00</div>
+          </div>
+          <div class="kpi">
+            <div class="t">Net</div>
+            <div class="v mono" id="kpiNet">$0.00</div>
+          </div>
+        </div>
+
+        <div class="split" style="margin-top:12px;">
+          <div class="chartBox">
+            <div class="tiny" style="margin-bottom:8px;"><b>Income vs Expenses (Pie)</b></div>
+            <canvas id="pie1" width="900" height="500"></canvas>
+            <div class="tiny">Shows total income and total expense for selected month.</div>
+          </div>
+
+          <div class="chartBox">
+            <div class="tiny" style="margin-bottom:8px;"><b>Expenses by Category (Pie)</b></div>
+            <canvas id="pie2" width="900" height="500"></canvas>
+            <div class="tiny">Only expenses (including debt payments) for selected month.</div>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="split">
+          <div>
+            <h3 style="margin:0 0 8px 0;">Category Breakdown</h3>
+            <div style="overflow:auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th class="right">Total</th>
+                  </tr>
+                </thead>
+                <tbody id="catTable"></tbody>
+              </table>
+            </div>
+          </div>
+          <div>
+            <h3 style="margin:0 0 8px 0;">Debt Snapshot</h3>
+            <div style="overflow:auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Debt</th>
+                    <th class="right">Balance</th>
+                    <th class="right">Min</th>
+                  </tr>
+                </thead>
+                <tbody id="debtSnap"></tbody>
+              </table>
+            </div>
+            <div class="help tiny">APR/Interest projection can be added next if you want amortization schedules.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Quick Summary -->
+    <div class="card">
+      <h3 style="margin:0 0 8px 0;">Quick Dashboard</h3>
+      <div class="tiny">Live totals (all-time)</div>
+
+      <div class="kpiGrid" style="margin-top:12px;">
+        <div class="kpi">
+          <div class="t">All-time Income</div>
+          <div class="v mono" id="allIncome">$0.00</div>
+        </div>
+        <div class="kpi">
+          <div class="t">All-time Expenses</div>
+          <div class="v mono" id="allExpense">$0.00</div>
+        </div>
+        <div class="kpi">
+          <div class="t">Net Worth-ish</div>
+          <div class="v mono" id="allNet">$0.00</div>
+          <div class="tiny">Income − Expenses − Debt balances</div>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <h3 style="margin:0 0 8px 0;">Debt Payment Category</h3>
+      <div class="tiny">When you select <b>Debt Payment</b> type, category becomes the debt you’re paying.</div>
+
+      <div class="hr"></div>
+
+      <h3 style="margin:0 0 8px 0;">Safety</h3>
+      <div class="tiny">
+        This app stores everything in <b>LocalStorage</b> only (browser). Use <b>Backup JSON</b> before clearing cache.
+      </div>
+    </div>
   </div>
-
-  <h1>Expense Manager</h1>
-
-  <div class="controls">
-    <input type="text" id="name" placeholder="Expense name">
-    <input type="number" id="amount" placeholder="Amount">
-    <select id="category">
-      <option>Food</option>
-      <option>Transport</option>
-      <option>Shopping</option>
-      <option>Utilities</option>
-      <option>Other</option>
-    </select>
-  </div>
-
-  <button onclick="addExpense()">Add Expense</button>
-
-  <div class="list" id="list"></div>
-
-  <div class="total" id="total">Total: $0.00</div>
 </div>
 
 <script>
-let expenses = [];
-let dark = false;
+/* =========================
+   DATA MODEL
+========================= */
+const STORAGE_KEY = "fintrack_v1";
 
-function addExpense() {
-  const name = document.getElementById("name").value;
-  const amount = parseFloat(document.getElementById("amount").value);
-  const category = document.getElementById("category").value;
+const DEFAULT_CATEGORIES = [
+  "Rent/Mortgage", "Groceries", "Dining", "Transport", "Gas", "Utilities",
+  "Internet/Phone", "Health", "Insurance", "Shopping", "Education", "Entertainment",
+  "Savings/Investing", "Other"
+];
 
-  if (!name || isNaN(amount)) {
-    alert("Please enter valid values");
+// transactions: {id, type: income|expense|debt_payment, amount, date(YYYY-MM-DD), category, note, debtId?}
+// debts: {id, name, balance, apr, minPayment, dueDay, kind: debt|mortgage}
+
+let state = loadState();
+
+/* =========================
+   UTIL
+========================= */
+const $ = (id) => document.getElementById(id);
+const fmt = (n) => (Number(n) || 0).toLocaleString(undefined, { style:"currency", currency:"USD" });
+const todayISO = () => new Date().toISOString().slice(0,10);
+const uid = () => Math.random().toString(16).slice(2) + Date.now().toString(16);
+
+function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+
+function monthKeyFromISO(dateISO){
+  // YYYY-MM
+  return (dateISO || "").slice(0,7);
+}
+
+function currentMonthKey(){
+  const d = new Date();
+  const m = String(d.getMonth()+1).padStart(2,"0");
+  return `${d.getFullYear()}-${m}`;
+}
+
+function saveState(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function loadState(){
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw){
+    return {
+      theme: "light",
+      categories: [...DEFAULT_CATEGORIES],
+      transactions: [],
+      debts: []
+    };
+  }
+  try{
+    const parsed = JSON.parse(raw);
+    // minimal repair
+    parsed.categories = parsed.categories?.length ? parsed.categories : [...DEFAULT_CATEGORIES];
+    parsed.transactions = parsed.transactions || [];
+    parsed.debts = parsed.debts || [];
+    parsed.theme = parsed.theme || "light";
+    return parsed;
+  } catch {
+    return { theme:"light", categories:[...DEFAULT_CATEGORIES], transactions:[], debts:[] };
+  }
+}
+
+function setTheme(mode){
+  if (mode === "dark") document.body.classList.add("dark");
+  else document.body.classList.remove("dark");
+  state.theme = mode;
+  saveState();
+}
+
+/* =========================
+   UI INITIALIZE
+========================= */
+let editingTxnId = null;
+let editingDebtId = null;
+
+function init(){
+  // defaults
+  $("tDate").value = todayISO();
+  setTheme(state.theme);
+
+  // tabs
+  document.querySelectorAll(".tab").forEach(btn=>{
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      const view = btn.dataset.view;
+      showView(view);
+    });
+  });
+
+  $("themeBtn").addEventListener("click", ()=>{
+    setTheme(document.body.classList.contains("dark") ? "light" : "dark");
+  });
+
+  $("exportBtn").addEventListener("click", exportCSV);
+  $("resetBtn").addEventListener("click", resetAll);
+  $("backupBtn").addEventListener("click", backupJSON);
+  $("restoreBtn").addEventListener("click", ()=> $("restoreFile").click());
+  $("restoreFile").addEventListener("change", restoreJSON);
+
+  $("saveTxnBtn").addEventListener("click", saveTransaction);
+  $("clearTxnBtn").addEventListener("click", clearTxnForm);
+  $("tType").addEventListener("change", refreshCategoryOptions);
+
+  $("searchBox").addEventListener("input", renderTransactions);
+  $("filterMonth").addEventListener("change", renderTransactions);
+
+  $("addDebtBtn").addEventListener("click", saveDebt);
+  $("clearDebtBtn").addEventListener("click", clearDebtForm);
+
+  $("reportMonth").addEventListener("change", renderReports);
+
+  buildMonthSelectors();
+  refreshCategoryOptions();
+  renderAll();
+}
+
+function showView(view){
+  $("view-transactions").style.display = view === "transactions" ? "block" : "none";
+  $("view-debts").style.display = view === "debts" ? "block" : "none";
+  $("view-reports").style.display = view === "reports" ? "block" : "none";
+  if (view === "reports") renderReports();
+}
+
+function buildMonthSelectors(){
+  // Collect months from txns + current month
+  const months = new Set(state.transactions.map(t => monthKeyFromISO(t.date)).filter(Boolean));
+  months.add(currentMonthKey());
+
+  const sorted = Array.from(months).sort().reverse();
+
+  const makeOptions = (selId, includeAll=false) => {
+    const sel = $(selId);
+    sel.innerHTML = "";
+    if (includeAll){
+      const opt = document.createElement("option");
+      opt.value = "ALL";
+      opt.textContent = "All Months";
+      sel.appendChild(opt);
+    }
+    sorted.forEach(m=>{
+      const opt = document.createElement("option");
+      opt.value = m;
+      opt.textContent = m;
+      sel.appendChild(opt);
+    });
+  };
+
+  makeOptions("filterMonth", true);
+  makeOptions("reportMonth", false);
+
+  // defaults
+  $("filterMonth").value = "ALL";
+  $("reportMonth").value = currentMonthKey();
+}
+
+function refreshCategoryOptions(){
+  const type = $("tType").value;
+  const sel = $("tCategory");
+  sel.innerHTML = "";
+
+  if (type === "debt_payment"){
+    // categories become debts
+    const debts = state.debts;
+    if (!debts.length){
+      const opt = document.createElement("option");
+      opt.value = "";
+      opt.textContent = "Add a debt first (Debts tab)";
+      sel.appendChild(opt);
+      sel.disabled = true;
+      return;
+    }
+    sel.disabled = false;
+    debts.forEach(d=>{
+      const opt = document.createElement("option");
+      opt.value = d.id;
+      opt.textContent = d.name;
+      sel.appendChild(opt);
+    });
+  } else {
+    sel.disabled = false;
+    state.categories.forEach(c=>{
+      const opt = document.createElement("option");
+      opt.value = c;
+      opt.textContent = c;
+      sel.appendChild(opt);
+    });
+  }
+}
+
+/* =========================
+   TRANSACTIONS CRUD
+========================= */
+function saveTransaction(){
+  const type = $("tType").value;
+  const amount = Number($("tAmount").value);
+  const date = $("tDate").value;
+  const categoryValue = $("tCategory").value;
+  const note = $("tNote").value.trim();
+
+  if (!date) return alert("Please select a date.");
+  if (!Number.isFinite(amount) || amount <= 0) return alert("Enter a valid amount > 0.");
+
+  // build txn
+  let txn = {
+    id: editingTxnId || uid(),
+    type,
+    amount,
+    date,
+    category: "",
+    note
+  };
+
+  if (type === "debt_payment"){
+    if (!categoryValue) return alert("Add a debt first, then select it.");
+    txn.category = "Debt Payment";
+    txn.debtId = categoryValue;
+  } else {
+    txn.category = categoryValue || "Other";
+  }
+
+  // If editing: revert previous debt balance impact first
+  if (editingTxnId){
+    const old = state.transactions.find(t=>t.id===editingTxnId);
+    if (old?.type === "debt_payment" && old.debtId){
+      const debt = state.debts.find(d=>d.id===old.debtId);
+      if (debt) debt.balance = Number(debt.balance) + Number(old.amount);
+    }
+    state.transactions = state.transactions.map(t=> t.id===editingTxnId ? txn : t);
+  } else {
+    state.transactions.unshift(txn);
+  }
+
+  // Apply debt payment effect
+  if (txn.type === "debt_payment" && txn.debtId){
+    const debt = state.debts.find(d=>d.id===txn.debtId);
+    if (debt) debt.balance = Math.max(0, Number(debt.balance) - Number(txn.amount));
+  }
+
+  editingTxnId = null;
+  $("editHint").textContent = "";
+  $("saveTxnBtn").textContent = "Add Transaction";
+
+  saveState();
+  buildMonthSelectors();
+  refreshCategoryOptions();
+  renderAll();
+  clearTxnForm(true);
+}
+
+function clearTxnForm(keepDate=false){
+  $("tType").value = "expense";
+  $("tAmount").value = "";
+  if (!keepDate) $("tDate").value = todayISO();
+  $("tNote").value = "";
+  editingTxnId = null;
+  $("editHint").textContent = "";
+  $("saveTxnBtn").textContent = "Add Transaction";
+  refreshCategoryOptions();
+}
+
+function editTxn(id){
+  const t = state.transactions.find(x=>x.id===id);
+  if (!t) return;
+
+  editingTxnId = id;
+  $("saveTxnBtn").textContent = "Save Changes";
+  $("editHint").textContent = "Editing transaction — click Save Changes when done.";
+
+  $("tType").value = t.type;
+  $("tAmount").value = t.amount;
+  $("tDate").value = t.date;
+  $("tNote").value = t.note || "";
+
+  refreshCategoryOptions();
+  if (t.type === "debt_payment"){
+    $("tCategory").value = t.debtId || "";
+  } else {
+    $("tCategory").value = t.category || "Other";
+  }
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function deleteTxn(id){
+  const t = state.transactions.find(x=>x.id===id);
+  if (!t) return;
+
+  if (!confirm("Delete this transaction?")) return;
+
+  // revert debt effect
+  if (t.type === "debt_payment" && t.debtId){
+    const debt = state.debts.find(d=>d.id===t.debtId);
+    if (debt) debt.balance = Number(debt.balance) + Number(t.amount);
+  }
+
+  state.transactions = state.transactions.filter(x=>x.id!==id);
+  if (editingTxnId === id) clearTxnForm();
+
+  saveState();
+  buildMonthSelectors();
+  refreshCategoryOptions();
+  renderAll();
+}
+
+/* =========================
+   DEBTS CRUD
+========================= */
+function saveDebt(){
+  const name = $("dName").value.trim();
+  const balance = Number($("dBalance").value);
+  const apr = Number($("dAPR").value) || 0;
+  const minPayment = Number($("dMin").value) || 0;
+  const dueDay = clamp(Number($("dDue").value) || 1, 1, 28);
+  const kind = $("dType").value;
+
+  if (!name) return alert("Debt name required.");
+  if (!Number.isFinite(balance) || balance < 0) return alert("Balance must be 0 or more.");
+
+  const debt = {
+    id: editingDebtId || uid(),
+    name, balance, apr, minPayment, dueDay, kind
+  };
+
+  if (editingDebtId){
+    state.debts = state.debts.map(d => d.id===editingDebtId ? debt : d);
+  } else {
+    state.debts.unshift(debt);
+  }
+
+  editingDebtId = null;
+  $("addDebtBtn").textContent = "Add Debt";
+  $("editDebtHint").textContent = "";
+
+  saveState();
+  refreshCategoryOptions();
+  renderAll();
+  clearDebtForm();
+}
+
+function clearDebtForm(){
+  $("dName").value = "";
+  $("dBalance").value = "";
+  $("dAPR").value = "";
+  $("dMin").value = "";
+  $("dDue").value = "";
+  $("dType").value = "debt";
+  editingDebtId = null;
+  $("addDebtBtn").textContent = "Add Debt";
+  $("editDebtHint").textContent = "";
+}
+
+function editDebt(id){
+  const d = state.debts.find(x=>x.id===id);
+  if (!d) return;
+  editingDebtId = id;
+  $("addDebtBtn").textContent = "Save Changes";
+  $("editDebtHint").textContent = "Editing debt — Save Changes when done.";
+  $("dName").value = d.name;
+  $("dBalance").value = d.balance;
+  $("dAPR").value = d.apr;
+  $("dMin").value = d.minPayment;
+  $("dDue").value = d.dueDay;
+  $("dType").value = d.kind;
+}
+
+function deleteDebt(id){
+  const d = state.debts.find(x=>x.id===id);
+  if (!d) return;
+
+  const hasPayments = state.transactions.some(t => t.type==="debt_payment" && t.debtId===id);
+  const msg = hasPayments
+    ? "This debt has payment transactions attached.\nDeleting it will also delete those payment transactions.\nContinue?"
+    : "Delete this debt?";
+
+  if (!confirm(msg)) return;
+
+  // remove related debt payments
+  state.transactions = state.transactions.filter(t => !(t.type==="debt_payment" && t.debtId===id));
+  state.debts = state.debts.filter(x=>x.id!==id);
+
+  if (editingDebtId===id) clearDebtForm();
+
+  saveState();
+  buildMonthSelectors();
+  refreshCategoryOptions();
+  renderAll();
+}
+
+/* =========================
+   RENDER
+========================= */
+function renderAll(){
+  renderTransactions();
+  renderDebts();
+  renderDashboard();
+  // reports view rerender if open
+  const reportsVisible = $("view-reports").style.display !== "none";
+  if (reportsVisible) renderReports();
+}
+
+function renderTransactions(){
+  const q = $("searchBox").value.trim().toLowerCase();
+  const monthFilter = $("filterMonth").value;
+
+  let txns = [...state.transactions];
+
+  if (monthFilter !== "ALL"){
+    txns = txns.filter(t => monthKeyFromISO(t.date) === monthFilter);
+  }
+  if (q){
+    txns = txns.filter(t =>
+      (t.category || "").toLowerCase().includes(q) ||
+      (t.note || "").toLowerCase().includes(q) ||
+      (t.type || "").toLowerCase().includes(q)
+    );
+  }
+
+  $("countTxn").textContent = String(txns.length);
+
+  const tbody = $("txnBody");
+  tbody.innerHTML = "";
+
+  txns.forEach(t=>{
+    const tr = document.createElement("tr");
+
+    const pillClass =
+      t.type === "income" ? "income" :
+      t.type === "expense" ? "expense" : "debt";
+
+    const typeLabel =
+      t.type === "income" ? "Income" :
+      t.type === "expense" ? "Expense" : "Debt Payment";
+
+    const catLabel =
+      t.type === "debt_payment"
+        ? (state.debts.find(d=>d.id===t.debtId)?.name || "Debt Payment")
+        : (t.category || "Other");
+
+    tr.innerHTML = `
+      <td class="mono">${t.date || ""}</td>
+      <td><span class="pill ${pillClass}">${typeLabel}</span></td>
+      <td>${escapeHtml(catLabel)}</td>
+      <td class="right mono">${fmt(t.amount)}</td>
+      <td>${escapeHtml(t.note || "")}</td>
+      <td class="right">
+        <button class="btn" data-edit="${t.id}">Edit</button>
+        <button class="btn danger" data-del="${t.id}">Delete</button>
+      </td>
+    `;
+
+    tbody.appendChild(tr);
+  });
+
+  // wire actions
+  tbody.querySelectorAll("[data-edit]").forEach(b => b.addEventListener("click", ()=> editTxn(b.dataset.edit)));
+  tbody.querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", ()=> deleteTxn(b.dataset.del)));
+}
+
+function renderDebts(){
+  const tbody = $("debtBody");
+  tbody.innerHTML = "";
+
+  state.debts.forEach(d=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>
+        <div><b>${escapeHtml(d.name)}</b> <span class="pill debt">${escapeHtml(d.kind)}</span></div>
+        <div class="tiny">Due day: ${d.dueDay} • APR: ${Number(d.apr||0).toFixed(2)}%</div>
+      </td>
+      <td class="right mono">${fmt(d.balance)}</td>
+      <td class="right mono">${Number(d.apr||0).toFixed(2)}%</td>
+      <td class="right mono">${fmt(d.minPayment||0)}</td>
+      <td class="right">
+        <button class="btn" data-editd="${d.id}">Edit</button>
+        <button class="btn danger" data-deld="${d.id}">Delete</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  tbody.querySelectorAll("[data-editd]").forEach(b => b.addEventListener("click", ()=> editDebt(b.dataset.editd)));
+  tbody.querySelectorAll("[data-deld]").forEach(b => b.addEventListener("click", ()=> deleteDebt(b.dataset.deld)));
+
+  // keep transaction category dropdown synced for debt payments
+  refreshCategoryOptions();
+}
+
+function renderDashboard(){
+  const income = sumTxns(state.transactions, "income");
+  const expense = sumTxns(state.transactions, "expense") + sumTxns(state.transactions, "debt_payment");
+  const debtBal = state.debts.reduce((a,d)=>a + Number(d.balance||0), 0);
+  const net = income - expense - debtBal;
+
+  $("allIncome").textContent = fmt(income);
+  $("allExpense").textContent = fmt(expense);
+  $("allNet").textContent = fmt(net);
+}
+
+function renderReports(){
+  const month = $("reportMonth").value || currentMonthKey();
+  const txns = state.transactions.filter(t => monthKeyFromISO(t.date) === month);
+
+  const income = sumTxns(txns, "income");
+  const expense = sumTxns(txns, "expense") + sumTxns(txns, "debt_payment");
+  const net = income - expense;
+
+  $("kpiIncome").textContent = fmt(income);
+  $("kpiExpense").textContent = fmt(expense);
+  $("kpiNet").textContent = fmt(net);
+
+  // category breakdown (expenses + debt payments)
+  const catMap = {};
+  txns.forEach(t=>{
+    if (t.type === "income") return;
+    const cat = t.type === "debt_payment"
+      ? (state.debts.find(d=>d.id===t.debtId)?.name || "Debt Payment")
+      : (t.category || "Other");
+    catMap[cat] = (catMap[cat] || 0) + Number(t.amount || 0);
+  });
+
+  // table
+  const catBody = $("catTable");
+  catBody.innerHTML = "";
+  Object.entries(catMap)
+    .sort((a,b)=>b[1]-a[1])
+    .forEach(([cat,val])=>{
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${escapeHtml(cat)}</td><td class="right mono">${fmt(val)}</td>`;
+      catBody.appendChild(tr);
+    });
+
+  // debt snapshot
+  const ds = $("debtSnap");
+  ds.innerHTML = "";
+  state.debts.forEach(d=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${escapeHtml(d.name)}</td><td class="right mono">${fmt(d.balance)}</td><td class="right mono">${fmt(d.minPayment||0)}</td>`;
+    ds.appendChild(tr);
+  });
+
+  // charts
+  drawPieChart($("pie1"), [
+    { label:"Income", value: income },
+    { label:"Expenses", value: expense }
+  ]);
+
+  drawPieChart($("pie2"), Object.entries(catMap).map(([label,value])=>({label,value})));
+}
+
+function sumTxns(list, type){
+  return list
+    .filter(t => t.type === type)
+    .reduce((a,t)=> a + Number(t.amount||0), 0);
+}
+
+function escapeHtml(s){
+  return String(s)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+/* =========================
+   PIE CHART (No libs)
+========================= */
+function drawPieChart(canvas, items){
+  const ctx = canvas.getContext("2d");
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+
+  const total = items.reduce((a,i)=>a + (Number(i.value)||0), 0);
+  const safeItems = items.filter(i => Number(i.value) > 0);
+
+  // empty state
+  if (!total || !safeItems.length){
+    ctx.fillStyle = getComputedStyle(document.body).getPropertyValue("--muted").trim() || "#666";
+    ctx.font = "16px system-ui";
+    ctx.textAlign = "center";
+    ctx.fillText("No data for this month.", W/2, H/2);
     return;
   }
 
-  expenses.push({ name, amount, category });
-  document.getElementById("name").value = "";
-  document.getElementById("amount").value = "";
+  const cx = W * 0.38;
+  const cy = H * 0.52;
+  const r  = Math.min(W,H) * 0.33;
 
-  render();
-}
+  // palette (deterministic)
+  const palette = generatePalette(safeItems.length);
 
-function render() {
-  const list = document.getElementById("list");
-  list.innerHTML = "";
+  let start = -Math.PI / 2;
+  safeItems.forEach((it, idx)=>{
+    const val = Number(it.value)||0;
+    const ang = (val / total) * Math.PI * 2;
 
-  let total = 0;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, r, start, start + ang);
+    ctx.closePath();
+    ctx.fillStyle = palette[idx];
+    ctx.fill();
 
-  expenses.forEach((e, index) => {
-    total += e.amount;
-    const row = document.createElement("div");
-    row.className = "item";
-    row.innerHTML = `
-      <span>${e.name} (${e.category})</span>
-      <span>$${e.amount.toFixed(2)}</span>
-    `;
-    list.appendChild(row);
+    // slice border
+    ctx.strokeStyle = "rgba(255,255,255,.35)";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    start += ang;
   });
 
-  document.getElementById("total").innerText =
-    "Total: $" + total.toFixed(2);
+  // legend
+  const legendX = W * 0.72;
+  let legendY = H * 0.18;
+
+  ctx.font = "14px system-ui";
+  ctx.textAlign = "left";
+
+  safeItems.forEach((it, idx)=>{
+    const val = Number(it.value)||0;
+    const pct = (val/total*100).toFixed(1) + "%";
+
+    // color box
+    ctx.fillStyle = palette[idx];
+    ctx.fillRect(legendX, legendY - 10, 14, 14);
+
+    // text
+    ctx.fillStyle = getComputedStyle(document.body).getPropertyValue("--text").trim() || "#111";
+    const label = `${it.label} — ${pct}`;
+    ctx.fillText(label, legendX + 20, legendY + 2);
+
+    // amount
+    ctx.fillStyle = getComputedStyle(document.body).getPropertyValue("--muted").trim() || "#666";
+    ctx.fillText(fmt(val), legendX + 20, legendY + 20);
+
+    legendY += 44;
+  });
 }
 
-function toggleTheme() {
-  document.body.classList.toggle("dark");
+function generatePalette(n){
+  // nice HSL palette
+  const res = [];
+  for (let i=0; i<n; i++){
+    const hue = Math.round((i * 360 / n) + 220) % 360;
+    res.push(`hsl(${hue}, 75%, 55%)`);
+  }
+  return res;
 }
+
+/* =========================
+   EXPORT / BACKUP
+========================= */
+function exportCSV(){
+  // transactions CSV
+  const txHeaders = ["id","type","amount","date","category","note","debtId"];
+  const txRows = state.transactions.map(t => [
+    t.id, t.type, t.amount, t.date,
+    (t.type==="debt_payment" ? (state.debts.find(d=>d.id===t.debtId)?.name || "Debt") : t.category),
+    t.note || "",
+    t.debtId || ""
+  ]);
+
+  const debtHeaders = ["id","name","balance","apr","minPayment","dueDay","kind"];
+  const debtRows = state.debts.map(d => [d.id,d.name,d.balance,d.apr,d.minPayment,d.dueDay,d.kind]);
+
+  const txCSV = toCSV(txHeaders, txRows);
+  const debtCSV = toCSV(debtHeaders, debtRows);
+
+  downloadText(`fintrack_transactions_${currentMonthKey()}.csv`, txCSV);
+  downloadText(`fintrack_debts_${currentMonthKey()}.csv`, debtCSV);
+}
+
+function toCSV(headers, rows){
+  const esc = (v) => {
+    const s = String(v ?? "");
+    if (s.includes(",") || s.includes('"') || s.includes("\n")) return `"${s.replaceAll('"','""')}"`;
+    return s;
+  };
+  return [headers.join(","), ...rows.map(r => r.map(esc).join(","))].join("\n");
+}
+
+function downloadText(filename, text){
+  const blob = new Blob([text], { type:"text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function backupJSON(){
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type:"application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `fintrack_backup_${Date.now()}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function restoreJSON(evt){
+  const file = evt.target.files?.[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try{
+      const parsed = JSON.parse(reader.result);
+      if (!parsed || typeof parsed !== "object") throw new Error("Bad JSON");
+      // minimal validation
+      state = {
+        theme: parsed.theme === "dark" ? "dark" : "light",
+        categories: Array.isArray(parsed.categories) && parsed.categories.length ? parsed.categories : [...DEFAULT_CATEGORIES],
+        transactions: Array.isArray(parsed.transactions) ? parsed.transactions : [],
+        debts: Array.isArray(parsed.debts) ? parsed.debts : []
+      };
+      saveState();
+      setTheme(state.theme);
+      buildMonthSelectors();
+      refreshCategoryOptions();
+      renderAll();
+      alert("Restore complete ✅");
+    } catch {
+      alert("Invalid JSON file.");
+    } finally {
+      evt.target.value = "";
+    }
+  };
+  reader.readAsText(file);
+}
+
+function resetAll(){
+  if (!confirm("This will erase all data in this browser. Continue?")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  state = loadState();
+  setTheme(state.theme);
+  buildMonthSelectors();
+  refreshCategoryOptions();
+  renderAll();
+  clearTxnForm();
+  clearDebtForm();
+}
+
+/* =========================
+   START
+========================= */
+init();
 </script>
-
 </body>
 </html>
