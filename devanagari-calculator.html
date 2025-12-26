@@ -1,74 +1,345 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Devanagari Calculator</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to bottom, #f3e5f5, #e1bee7);
-            color: #333;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Devanagari Calculator</title>
+  <style>
+    body{
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin:0; padding:0;
+      background:linear-gradient(to bottom,#f3e5f5,#e1bee7);
+      color:#333;
+    }
+    .container{
+      max-width:900px;
+      margin:2rem auto;
+      padding:1rem;
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 4px 10px rgba(0,0,0,.18);
+      text-align:center;
+    }
+    h1{ color:#512da8; margin-top:.5rem; }
 
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 1rem;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      align-items:start;
+      margin-top: 1rem;
+    }
 
-        h1 {
-            color: #512da8;
-        }
+    @media (min-width: 860px){
+      .grid{ grid-template-columns: 1.05fr .95fr; }
+      .privacy-policy{ margin-top:0; }
+    }
 
-        .privacy-policy {
-            margin-top: 2rem;
-            padding: 1rem;
-            background: #ede7f6;
-            border-radius: 8px;
-            text-align: left;
-        }
+    /* Calculator */
+    .calc{
+      background:#faf7ff;
+      border:1px solid #e7dcff;
+      border-radius:12px;
+      padding:1rem;
+      text-align:left;
+    }
 
-        .download-button {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.8rem 1.5rem;
-            background-color: #673ab7;
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
+    .display{
+      background:#2d5bff;
+      color:#fff;
+      border-radius:10px;
+      padding: 14px 16px;
+      font-size: clamp(28px, 4vw, 44px);
+      text-align:right;
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+    }
 
-        .download-button:hover {
-            background-color: #512da8;
-        }
-    </style>
+    .historyWrap{
+      margin-top:10px;
+      background: rgba(0,0,0,0.05);
+      border-radius:10px;
+      padding: 10px 12px;
+      min-height: 44px;
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      color:#512da8;
+      font-size: 16px;
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+    }
+
+    .btnGrid{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .btn{
+      border:none;
+      border-radius:10px;
+      padding: 14px 0;
+      font-size: 20px;
+      cursor:pointer;
+      background:#5b7cff;
+      color:#0b0b0b;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.8);
+      transition: transform .03s ease, filter .15s ease;
+      user-select:none;
+    }
+    .btn:active{ transform: scale(0.98); filter:brightness(0.95); }
+
+    .btn.op{ background:#ffd54f; }
+    .btn.eq{ background:#66bb6a; }
+    .btn.util{ background:#ff8a80; }
+
+    .btn.wide{
+      grid-column: span 2;
+    }
+
+    /* Existing section styles */
+    .privacy-policy{
+      margin-top:2rem;
+      padding:1rem;
+      background:#ede7f6;
+      border-radius:12px;
+      text-align:left;
+    }
+
+    .download-button{
+      display:inline-block;
+      margin-top:1rem;
+      padding:.8rem 1.5rem;
+      background:#673ab7;
+      color:#fff;
+      text-decoration:none;
+      font-size:1.1rem;
+      border-radius:8px;
+      transition:.2s;
+    }
+    .download-button:hover{ background:#512da8; }
+    .smallNote{
+      margin-top:.5rem;
+      color:#666;
+      font-size: 14px;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Devanagari Calculator</h1>
-        <p>This app allows users to perform calculations using Devanagari numerals.</p>
+  <div class="container">
+    <h1>Devanagari Calculator</h1>
+    <p>This app allows users to perform calculations using Devanagari numerals.</p>
 
-        <a class="download-button" href="https://apps.apple.com/app/ganak/id6741540953" target="_blank">
-            Download on the App Store
-        </a>
+    <a class="download-button" href="https://apps.apple.com/app/ganak/id6741540953" target="_blank" rel="noopener">
+      Download on the App Store
+    </a>
+    <div class="smallNote">Web demo below (works fully in-browser, no data leaves your device).</div>
 
-        <div class="privacy-policy">
-            <h2>Privacy Policy</h2>
-            <p><strong>Effective Date:</strong> January 27, 2025</p>
-            <p>I do not collect, store, or share any personal information from users of this app.</p>
-            <p><strong>Local Data Only:</strong> All calculations are performed locally on your device. No input, output, or any other data is transmitted or stored externally.</p>
-            <p><strong>Children’s Privacy:</strong> This app is safe for users of all ages. No data is collected from children under 13.</p>
-            <p><strong>Contact:</strong> If you have questions, email me at <a href="mailto:admin@ajayaghimire.net">admin@ajayaghimire.net</a></p>
+    <div class="grid">
+      <!-- ✅ Web Calculator App -->
+      <div class="calc">
+        <div id="display" class="display">०</div>
+        <div id="history" class="historyWrap"></div>
+
+        <div class="btnGrid" id="btnGrid">
+          <!-- Row 1 -->
+          <button class="btn" data-key="७">७</button>
+          <button class="btn" data-key="८">८</button>
+          <button class="btn" data-key="९">९</button>
+          <button class="btn op" data-key="÷">÷</button>
+
+          <!-- Row 2 -->
+          <button class="btn" data-key="४">४</button>
+          <button class="btn" data-key="५">५</button>
+          <button class="btn" data-key="६">६</button>
+          <button class="btn op" data-key="×">×</button>
+
+          <!-- Row 3 -->
+          <button class="btn" data-key="१">१</button>
+          <button class="btn" data-key="२">२</button>
+          <button class="btn" data-key="३">३</button>
+          <button class="btn op" data-key="-">-</button>
+
+          <!-- Row 4 -->
+          <button class="btn" data-key="०">०</button>
+          <button class="btn" data-key=".">.</button>
+          <button class="btn eq" data-key="=">=</button>
+          <button class="btn op" data-key="+">+</button>
+
+          <!-- Row 5 -->
+          <button class="btn util wide" data-key="AC">AC</button>
+          <button class="btn util wide" data-key="⌫">⌫</button>
         </div>
+      </div>
+
+      <!-- ✅ Your existing Privacy Policy block -->
+      <div class="privacy-policy">
+        <h2>Privacy Policy</h2>
+        <p><strong>Effective Date:</strong> January 27, 2025</p>
+        <p>I do not collect, store, or share any personal information from users of this app.</p>
+        <p><strong>Local Data Only:</strong> All calculations are performed locally on your device. No input, output, or any other data is transmitted or stored externally.</p>
+        <p><strong>Children’s Privacy:</strong> This app is safe for users of all ages. No data is collected from children under 13.</p>
+        <p><strong>Contact:</strong> If you have questions, email me at <a href="mailto:admin@ajayaghimire.net">admin@ajayaghimire.net</a></p>
+      </div>
     </div>
+  </div>
+
+  <script>
+    // --- Devanagari mappings ---
+    const devToEng = {
+      "०":"0","१":"1","२":"2","३":"3","४":"4","५":"5","६":"6","७":"7","८":"8","९":"9"
+    };
+    const engToDev = {
+      "0":"०","1":"१","2":"२","3":"३","4":"४","5":"५","6":"६","7":"७","8":"८","9":"९",".":".","-":"-"
+    };
+
+    function convertToEnglish(str){
+      const chars = [...str].map(ch => devToEng[ch] ?? ch);
+      const n = Number(chars.join(""));
+      return Number.isFinite(n) ? n : 0;
+    }
+
+    function formatDisplay(num){
+      // match Swift behavior: show integer without decimals
+      const isInt = Math.floor(num) === num;
+      const english = isInt ? String(num.toFixed(0)) : String(num);
+      return [...english].map(ch => engToDev[ch] ?? ch).join("");
+    }
+
+    // --- Calculator state (mirrors your Swift logic) ---
+    let display = "०";
+    let pendingResult = null;
+    let currentOperation = null;
+    let userIsTyping = false;
+    let history = "";
+    let lastOperand = null;
+
+    const displayEl = document.getElementById("display");
+    const historyEl = document.getElementById("history");
+
+    function render(){
+      displayEl.textContent = display;
+      historyEl.textContent = history;
+    }
+
+    function performOperation(lhs, rhs, op){
+      switch(op){
+        case "÷": return rhs === 0 ? 0 : lhs / rhs;
+        case "×": return lhs * rhs;
+        case "-": return lhs - rhs;
+        case "+": return lhs + rhs;
+        default:  return rhs;
+      }
+    }
+
+    function handleNumberInput(key){
+      if (userIsTyping){
+        if (key === "." && display.includes(".")) return; // no double dot
+        display += key;
+      } else {
+        display = (key === ".") ? "०." : key;
+        userIsTyping = true;
+      }
+      history += key;
+      render();
+    }
+
+    function handleOperation(op){
+      if (userIsTyping){
+        const currentVal = convertToEnglish(display);
+        if (pendingResult !== null && currentOperation){
+          pendingResult = performOperation(pendingResult, currentVal, currentOperation);
+          display = formatDisplay(pendingResult);
+        } else {
+          pendingResult = currentVal;
+        }
+        userIsTyping = false;
+      }
+      currentOperation = op;
+      history += (history.trim().length ? " " : "") + op + " ";
+      lastOperand = null;
+      render();
+    }
+
+    function calculateResult(){
+      if (!currentOperation) return;
+
+      if (userIsTyping){
+        const rhs = convertToEnglish(display);
+        pendingResult = performOperation(pendingResult ?? 0, rhs, currentOperation);
+        lastOperand = rhs;
+      } else if (lastOperand !== null){
+        pendingResult = performOperation(pendingResult ?? 0, lastOperand, currentOperation);
+      }
+
+      display = formatDisplay(pendingResult ?? 0);
+      userIsTyping = false;
+      currentOperation = null; // mirrors your resetOperationState behavior
+      render();
+    }
+
+    function clearAll(){
+      display = "०";
+      pendingResult = null;
+      currentOperation = null;
+      userIsTyping = false;
+      history = "";
+      lastOperand = null;
+      render();
+    }
+
+    function backspace(){
+      if (!userIsTyping) return;
+      display = display.slice(0, -1);
+      if (display.length === 0){
+        display = "०";
+        userIsTyping = false;
+      }
+      render();
+    }
+
+    function buttonTapped(key){
+      const digits = new Set(["०","१","२","३","४","५","६","७","८","९","."]);
+      const ops = new Set(["÷","×","-","+"]);
+
+      if (digits.has(key)) return handleNumberInput(key);
+      if (ops.has(key)) return handleOperation(key);
+
+      switch(key){
+        case "=": return calculateResult();
+        case "AC": return clearAll();
+        case "⌫": return backspace();
+      }
+    }
+
+    // Button clicks
+    document.getElementById("btnGrid").addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-key]");
+      if (!btn) return;
+      buttonTapped(btn.getAttribute("data-key"));
+    });
+
+    // Keyboard support (optional)
+    window.addEventListener("keydown", (e) => {
+      const map = {
+        "/":"÷","*":"×","+":"+","-":"-","Enter":"=","=":"=",
+        "Backspace":"⌫","Escape":"AC"
+      };
+      if (e.key >= "0" && e.key <= "9"){
+        const dev = engToDev[e.key];
+        buttonTapped(dev);
+        return;
+      }
+      if (e.key === "."){ buttonTapped("."); return; }
+      if (map[e.key]){ buttonTapped(map[e.key]); }
+    });
+
+    render();
+  </script>
 </body>
-</html>    
+</html>
