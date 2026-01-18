@@ -1,96 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Ajaya Ghimire</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to bottom, #f3e5f5, #e1bee7);
-            color: #333;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact - Ajaya Ghimire</title>
 
-        header {
-            background: linear-gradient(to right, #673ab7, #512da8);
-            color: white;
-            padding: 1.5rem 0;
-            text-align: center;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-        }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap');
 
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #311b92;
-            padding: 1rem 0;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-        }
+:root{
+  --text:#e8f7ff;
+  --muted:rgba(232,247,255,.72);
+  --card:rgba(12,18,38,.55);
+  --card2:rgba(18,24,52,.35);
+  --border:rgba(255,255,255,.14);
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 1rem;
-            padding: 0.5rem 1rem;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
+*{box-sizing:border-box}
+html,body{height:100%}
 
-        nav a:hover {
-            background-color: #9575cd;
-            color: #f3e5f5;
-            transform: scale(1.1);
-        }
+body{
+  margin:0;
+  font-family:'Orbitron',sans-serif;
+  color:var(--text);
+  background:#020313;
+  overflow-x:hidden;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 1rem;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
+/* ===== Universe Background ===== */
+.universe{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  background:
+    radial-gradient(1200px 700px at 20% 20%, rgba(116,79,255,.20), transparent 60%),
+    radial-gradient(900px 600px at 80% 30%, rgba(0,208,255,.16), transparent 55%),
+    radial-gradient(1100px 800px at 55% 85%, rgba(90,255,173,.12), transparent 60%),
+    linear-gradient(180deg,#020313 0%, #020316 60%, #040428 100%);
+}
 
-        h2 {
-            color: #512da8;
-            border-bottom: 2px solid #d1c4e9;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-        }
+.stars,.stars::before,.stars::after{
+  content:"";
+  position:fixed;
+  inset:-50vh -50vw;
+  z-index:-2;
+  background-repeat:repeat;
+  animation:drift 150s linear infinite;
+  pointer-events:none;
+}
+.stars{
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.9) 40%, transparent 41%),
+    radial-gradient(1px 1px at 30% 80%, rgba(255,255,255,.7) 40%, transparent 41%),
+    radial-gradient(1px 1px at 70% 10%, rgba(255,255,255,.8) 40%, transparent 41%),
+    radial-gradient(1px 1px at 90% 60%, rgba(255,255,255,.65) 40%, transparent 41%);
+}
+.stars::before{
+  opacity:.55;
+  animation-duration:210s;
+  background-image:
+    radial-gradient(1px 1px at 20% 35%, rgba(255,255,255,.7) 40%, transparent 41%),
+    radial-gradient(1px 1px at 45% 15%, rgba(255,255,255,.55) 40%, transparent 41%),
+    radial-gradient(1px 1px at 75% 75%, rgba(255,255,255,.6) 40%, transparent 41%);
+}
+.stars::after{
+  opacity:.35;
+  animation-duration:280s;
+  filter:blur(.6px);
+  background-image:
+    radial-gradient(1px 1px at 12% 40%, rgba(255,255,255,.55) 40%, transparent 41%),
+    radial-gradient(1px 1px at 65% 25%, rgba(255,255,255,.45) 40%, transparent 41%),
+    radial-gradient(1px 1px at 88% 88%, rgba(255,255,255,.5) 40%, transparent 41%);
+}
+@keyframes drift{
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(10vw,8vh,0)}
+}
 
-        footer {
-            text-align: center;
-            padding: 1rem 0;
-            background: linear-gradient(to right, #512da8, #673ab7);
-            color: white;
-            margin-top: 2rem;
-        }
-    </style>
+.nebula{
+  position:fixed;
+  inset:-30vh -30vw;
+  z-index:-1;
+  opacity:.85;
+  background:
+    radial-gradient(900px 600px at 35% 55%, rgba(97,110,255,.16), transparent 60%),
+    radial-gradient(700px 450px at 70% 40%, rgba(0,255,209,.12), transparent 60%),
+    radial-gradient(820px 520px at 55% 75%, rgba(255,135,210,.08), transparent 60%);
+  filter:blur(10px);
+  animation:nebulaMove 26s ease-in-out infinite alternate;
+  pointer-events:none;
+}
+@keyframes nebulaMove{
+  from{transform:translate3d(-2vw,-1vh,0) scale(1.02)}
+  to{transform:translate3d(2vw,1.5vh,0) scale(1.06)}
+}
+
+/* ===== Header / Nav ===== */
+header{
+  text-align:center;
+  padding:3rem 1rem 1.5rem;
+}
+header h1{
+  margin:0;
+  letter-spacing:6px;
+  font-size:clamp(2rem,4vw,3rem);
+  text-shadow:0 10px 35px rgba(0,0,0,.6);
+}
+
+nav{
+  display:flex;
+  justify-content:center;
+  gap:.6rem;
+  padding:1rem;
+  position:sticky;
+  top:0;
+  z-index:5;
+  backdrop-filter:blur(10px);
+  background:rgba(2,3,18,.55);
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+nav a{
+  color:rgba(232,247,255,.88);
+  text-decoration:none;
+  padding:.6rem 1rem;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06);
+  transition:.25s ease;
+}
+nav a:hover{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.12);
+  color:rgba(255,255,255,.95);
+}
+
+/* ===== Main ===== */
+.wrap{
+  width:min(900px,92%);
+  margin:2.2rem auto 4rem;
+  display:grid;
+  gap:1.25rem;
+}
+
+/* ===== Planet Card ===== */
+.planet{
+  position:relative;
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  background:
+    radial-gradient(900px 450px at 20% 0%, rgba(255,255,255,.09), transparent 60%),
+    radial-gradient(700px 450px at 90% 30%, rgba(0,208,255,.06), transparent 60%),
+    linear-gradient(180deg,var(--card) 0%, var(--card2) 100%);
+  box-shadow:0 22px 55px rgba(0,0,0,.62);
+  padding:1.4rem 1.5rem;
+  animation:floaty 10s ease-in-out infinite;
+  transition:transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+}
+
+@keyframes floaty{
+  50%{transform:translateY(-12px)}
+}
+
+.planet:hover{
+  transform:translateY(-16px) scale(1.02);
+  border-color:rgba(255,255,255,.22);
+  box-shadow:0 30px 85px rgba(0,0,0,.70);
+}
+
+/* Atmosphere haze */
+.planet::before{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(134,231,255,.09), transparent 58%),
+    radial-gradient(circle at 70% 60%, rgba(90,255,173,.06), transparent 58%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.08), transparent 62%);
+  filter:blur(20px);
+  opacity:.75;
+  pointer-events:none;
+}
+
+.titleRow{
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+  margin-bottom:.5rem;
+}
+.dot{
+  width:10px;height:10px;border-radius:999px;
+  background:rgba(134,231,255,.9);
+  box-shadow:0 0 0 3px rgba(134,231,255,.12);
+}
+
+h2{
+  margin:0;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  font-size:1.1rem;
+}
+
+p{
+  margin:.4rem 0;
+  color:var(--muted);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  line-height:1.7;
+}
+
+/* Buttons */
+.btns{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.7rem;
+  margin-top:1rem;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.75rem 1.05rem;
+  border-radius:999px;
+  text-decoration:none;
+  color:rgba(255,255,255,.92);
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06);
+  transition:.22s ease;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  font-weight:600;
+}
+.btn:hover{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.12);
+  border-color:rgba(255,255,255,.22);
+}
+
+/* Link inside text */
+a.inline{
+  color:rgba(134,231,255,.95);
+  text-decoration:none;
+  border-bottom:1px dashed rgba(134,231,255,.5);
+}
+a.inline:hover{
+  border-bottom-color:rgba(134,231,255,.9);
+}
+
+/* Footer */
+footer{
+  text-align:center;
+  padding:2rem 1rem;
+  color:rgba(232,247,255,.55);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .stars,.nebula,.planet{animation:none !important; transition:none !important}
+  .planet:hover{transform:none !important}
+}
+</style>
 </head>
-<body>
-    <header>
-        <h1>Contact Me</h1>
-    </header>
-    
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="apps.html">Apps</a>
-        <a href="https://ajaya001.blogspot.com" target="_blank">Blog</a>
-        <a href="contact.html">Contact</a>
-    </nav>
 
-    <div class="container">
-        <h2>Contact Me</h2>
-        <p>If you have any questions, feedback, or collaboration ideas, feel free to reach out!</p>
-        <p>Email: <a href="mailto:admin@ajayaghimire.net">admin@ajayaghimire.net</a></p>
+<body>
+<div class="universe"></div>
+<div class="stars"></div>
+<div class="nebula"></div>
+
+<header>
+  <h1>Contact Me</h1>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="apps.html">Apps</a>
+  <a href="https://ajaya001.blogspot.com" target="_blank" rel="noreferrer">Blog</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<main class="wrap">
+  <section class="planet">
+    <div class="titleRow">
+      <span class="dot"></span>
+      <h2>Let’s Connect</h2>
     </div>
 
-    <footer>
-        <p>&copy; 2025 Ajaya Ghimire. All Rights Reserved.</p>
-    </footer>
+    <p>If you have questions, feedback, or collaboration ideas, feel free to reach out.</p>
+    <p>Email: <a class="inline" href="mailto:admin@ajayaghimire.net">admin@ajayaghimire.net</a></p>
+
+    <div class="btns">
+      <a class="btn" href="mailto:admin@ajayaghimire.net / ghimireajaya9@gmail.com">Email Me</a>
+      <a class="btn" href="https://github.com/ajaya-ghimire" target="_blank" rel="noreferrer">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/ghimire-ajaya24" target="_blank" rel="noreferrer">LinkedIn</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  &copy; 2026 Ajaya Ghimire. All Rights Reserved.
+</footer>
 </body>
 </html>
