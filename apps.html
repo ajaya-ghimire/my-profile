@@ -1,148 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Apps - Ajaya Ghimire</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to bottom, #f3e5f5, #e1bee7);
-            color: #333;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Apps - Ajaya Ghimire</title>
 
-        header {
-            background: linear-gradient(to right, #673ab7, #512da8);
-            color: white;
-            padding: 1.5rem 0;
-            text-align: center;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-        }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap');
 
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #311b92;
-            padding: 1rem 0;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-        }
+:root{
+  --text:#e8f7ff;
+  --muted:rgba(232,247,255,.7);
+  --card:rgba(12,18,38,.55);
+  --card2:rgba(18,24,52,.35);
+  --border:rgba(255,255,255,.14);
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 1rem;
-            padding: 0.5rem 1rem;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
+/* ---------- Base ---------- */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Orbitron',sans-serif;
+  color:var(--text);
+  background:#020313;
+  overflow-x:hidden;
+}
 
-        nav a:hover {
-            background-color: #9575cd;
-            color: #f3e5f5;
-            transform: scale(1.1);
-        }
+/* ---------- Universe ---------- */
+.universe{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  background:
+    radial-gradient(1200px 700px at 20% 20%, rgba(116,79,255,.20), transparent 60%),
+    radial-gradient(900px 600px at 80% 30%, rgba(0,208,255,.16), transparent 55%),
+    linear-gradient(180deg,#020313,#040428);
+}
+.stars,.stars::before,.stars::after{
+  content:"";
+  position:fixed;
+  inset:-50vh -50vw;
+  z-index:-2;
+  background-repeat:repeat;
+  animation:drift 140s linear infinite;
+}
+.stars{
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, white 40%, transparent 41%),
+    radial-gradient(1px 1px at 70% 80%, white 40%, transparent 41%),
+    radial-gradient(1px 1px at 40% 50%, white 40%, transparent 41%);
+}
+.stars::before{
+  animation-duration:200s;
+  opacity:.6;
+  background-image:
+    radial-gradient(1px 1px at 30% 40%, white 40%, transparent 41%),
+    radial-gradient(1px 1px at 80% 20%, white 40%, transparent 41%);
+}
+.stars::after{
+  animation-duration:260s;
+  opacity:.4;
+  background-image:
+    radial-gradient(1px 1px at 60% 60%, white 40%, transparent 41%);
+}
+@keyframes drift{
+  from{transform:translate(0,0)}
+  to{transform:translate(10vw,8vh)}
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 1rem;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        }
+/* ---------- Header / Nav ---------- */
+header{
+  text-align:center;
+  padding:3rem 1rem 1.5rem;
+}
+header h1{
+  margin:0;
+  letter-spacing:6px;
+  font-size:clamp(2rem,4vw,3rem);
+}
+nav{
+  display:flex;
+  justify-content:center;
+  gap:.6rem;
+  padding:1rem;
+  backdrop-filter:blur(10px);
+  background:rgba(2,3,18,.55);
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+nav a{
+  color:var(--text);
+  text-decoration:none;
+  padding:.6rem 1rem;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06);
+  transition:.25s ease;
+}
+nav a:hover{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.12);
+}
 
-        .app-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-        }
+/* ---------- Layout ---------- */
+.wrap{
+  width:min(1100px,92%);
+  margin:2rem auto 4rem;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.3rem;
+}
 
-        .app {
-            background: linear-gradient(to bottom, #ede7f6, #d1c4e9);
-            border-radius: 8px;
-            padding: 1rem;
-            flex: 1 1 calc(33.333% - 1rem);
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-            cursor: pointer;
-            text-align: center;
-        }
+/* ---------- Planet App Cards ---------- */
+.planet{
+  position:relative;
+  border-radius:22px;
+  padding:1.2rem 1.3rem;
+  border:1px solid var(--border);
+  background:
+    radial-gradient(600px 300px at 30% 0%, rgba(255,255,255,.08), transparent 60%),
+    linear-gradient(180deg,var(--card),var(--card2));
+  box-shadow:0 20px 50px rgba(0,0,0,.6);
+  cursor:pointer;
+  animation:float 9s ease-in-out infinite;
+  transition:.35s ease;
+}
+.planet:nth-child(odd){animation-duration:11s}
+@keyframes float{
+  50%{transform:translateY(-10px)}
+}
 
-        .app:hover {
-            transform: translateY(-5px);
-        }
+.planet:hover{
+  transform:translateY(-14px) scale(1.03);
+}
 
-        footer {
-            text-align: center;
-            padding: 1rem 0;
-            background: linear-gradient(to right, #512da8, #673ab7);
-            color: white;
-            margin-top: 2rem;
-        }
+.planet h3{
+  margin:.2rem 0 .5rem;
+  letter-spacing:3px;
+}
+.planet p{
+  margin:0;
+  font-family:system-ui,Segoe UI,Arial;
+  color:var(--muted);
+  line-height:1.6;
+}
 
-        @media (max-width: 768px) {
-            .app {
-                flex: 1 1 calc(50% - 1rem);
-            }
-        }
+/* ---------- Expand ---------- */
+.planet-body{
+  max-height:0;
+  overflow:hidden;
+  opacity:0;
+  transition:.5s ease;
+}
+.planet.open .planet-body{
+  max-height:200px;
+  opacity:1;
+  margin-top:.7rem;
+}
 
-        @media (max-width: 480px) {
-            .app {
-                flex: 1 1 100%;
-            }
-        }
-    </style>
+/* ---------- Footer ---------- */
+footer{
+  text-align:center;
+  padding:2rem 1rem;
+  color:rgba(232,247,255,.5);
+  font-family:system-ui;
+}
+</style>
 </head>
+
 <body>
-    <header>
-        <h1>My Apps</h1>
-    </header>
-    
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="apps.html">Apps</a>
-        <a href="https://ajaya001.blogspot.com" target="_blank">Blog</a>
-        <a href="contact.html">Contact</a>
-    </nav>
 
-    <div class="container">
-        <h2>My Apps</h2>
-        
-        <div class="app-list">
-            
-            <div class="app" onclick="location.href='devanagari-calculator.html'">
-                <h3>Devanagari Calculator</h3>
-                <p>A calculator app with Devanagari numerals.</p>
-            </div>
-            
-            <div class="app" onclick="location.href='expense-manager.html'">
-                <h3>Expense Manager</h3>
-                <p>A simple application to keep track of your finances!</p>
-            </div>
+<div class="universe"></div>
+<div class="stars"></div>
 
-             <div class="app" onclick="location.href='persie-tech.html'">
-                <h3>PersieTech</h3>
-                <p>Your Personal Diet Intelligence in your pocket!</p>
-            </div>
-            
-            <div class="app">
-                <h3>File Encryptor!</h3>
-                <p>Coming Soon!!!</p>
-            </div>
-    
-            <div class="app">
-                <h3>Retro Arcade!</h3>
-                <p>Coming Soon!!!</p>
-            </div>
-        </div>
+<header>
+  <h1>My Apps</h1>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="apps.html">Apps</a>
+  <a href="https://ajaya001.blogspot.com" target="_blank">Blog</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<main class="wrap">
+  <div class="grid">
+
+    <div class="planet open" data-link="devanagari-calculator.html">
+      <h3>Devanagari Calculator</h3>
+      <p>A calculator app with Devanagari numerals.</p>
+      <div class="planet-body">
+        <p>Available as a web demo and full iOS release.</p>
+      </div>
     </div>
 
-    <footer>
-        <p>&copy; 2025 Ajaya Ghimire. All Rights Reserved.</p>
-    </footer>
+    <div class="planet" data-link="expense-manager.html">
+      <h3>Expense Manager</h3>
+      <p>Track expenses, income, and financial habits.</p>
+      <div class="planet-body">
+        <p>Charts, CSV export, and monthly summaries.</p>
+      </div>
+    </div>
+
+    <div class="planet" data-link="persie-tech.html">
+      <h3>PersieTech</h3>
+      <p>Your personal diet intelligence platform.</p>
+      <div class="planet-body">
+        <p>Smart nutrition insights powered by data.</p>
+      </div>
+    </div>
+
+    <div class="planet">
+      <h3>File Encryptor</h3>
+      <p>Secure file encryption utility.</p>
+      <div class="planet-body">
+        <p>🚀 Coming soon.</p>
+      </div>
+    </div>
+
+    <div class="planet">
+      <h3>Retro Arcade</h3>
+      <p>Classic arcade games, reborn.</p>
+      <div class="planet-body">
+        <p>🎮 Coming soon.</p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  &copy; 2026 Ajaya Ghimire. All Rights Reserved.
+</footer>
+
+<script>
+const planets=document.querySelectorAll('.planet');
+planets.forEach(p=>{
+  p.addEventListener('click',e=>{
+    if(p.dataset.link){
+      if(p.classList.contains('open')){
+        window.location=p.dataset.link;
+      }
+    }
+    planets.forEach(x=>x!==p&&x.classList.remove('open'));
+    p.classList.toggle('open');
+  });
+});
+</script>
+
 </body>
 </html>
