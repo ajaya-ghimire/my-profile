@@ -16,7 +16,6 @@
   --border:rgba(255,255,255,.14);
 }
 
-/* ---------- Base ---------- */
 *{box-sizing:border-box}
 body{
   margin:0;
@@ -28,155 +27,128 @@ body{
 
 /* ---------- Universe ---------- */
 .universe{
-  position:fixed;
-  inset:0;
-  z-index:-3;
+  position:fixed;inset:0;z-index:-3;
   background:
-    radial-gradient(1200px 700px at 20% 20%, rgba(116,79,255,.20), transparent 60%),
-    radial-gradient(900px 600px at 80% 30%, rgba(0,208,255,.16), transparent 55%),
+    radial-gradient(1200px 700px at 20% 20%,rgba(116,79,255,.20),transparent 60%),
+    radial-gradient(900px 600px at 80% 30%,rgba(0,208,255,.16),transparent 55%),
     linear-gradient(180deg,#020313,#040428);
 }
 .stars,.stars::before,.stars::after{
-  content:"";
-  position:fixed;
-  inset:-50vh -50vw;
-  z-index:-2;
-  background-repeat:repeat;
-  animation:drift 140s linear infinite;
+  content:"";position:fixed;inset:-50vh -50vw;z-index:-2;
+  background-repeat:repeat;animation:drift 140s linear infinite;
 }
 .stars{
   background-image:
-    radial-gradient(1px 1px at 10% 20%, white 40%, transparent 41%),
-    radial-gradient(1px 1px at 70% 80%, white 40%, transparent 41%),
-    radial-gradient(1px 1px at 40% 50%, white 40%, transparent 41%);
+    radial-gradient(1px 1px at 10% 20%,white 40%,transparent 41%),
+    radial-gradient(1px 1px at 70% 80%,white 40%,transparent 41%),
+    radial-gradient(1px 1px at 40% 50%,white 40%,transparent 41%);
 }
 .stars::before{
-  animation-duration:200s;
-  opacity:.6;
+  animation-duration:200s;opacity:.6;
   background-image:
-    radial-gradient(1px 1px at 30% 40%, white 40%, transparent 41%),
-    radial-gradient(1px 1px at 80% 20%, white 40%, transparent 41%);
+    radial-gradient(1px 1px at 30% 40%,white 40%,transparent 41%),
+    radial-gradient(1px 1px at 80% 20%,white 40%,transparent 41%);
 }
 .stars::after{
-  animation-duration:260s;
-  opacity:.4;
-  background-image:
-    radial-gradient(1px 1px at 60% 60%, white 40%, transparent 41%);
+  animation-duration:260s;opacity:.4;
+  background-image:radial-gradient(1px 1px at 60% 60%,white 40%,transparent 41%);
 }
-@keyframes drift{
-  from{transform:translate(0,0)}
-  to{transform:translate(10vw,8vh)}
-}
+@keyframes drift{from{transform:translate(0,0)}to{transform:translate(10vw,8vh)}}
 
-/* ---------- Header / Nav ---------- */
-header{
-  text-align:center;
-  padding:3rem 1rem 1.5rem;
-}
-header h1{
-  margin:0;
-  letter-spacing:6px;
-  font-size:clamp(2rem,4vw,3rem);
-}
+/* ---------- Nav ---------- */
 nav{
-  display:flex;
-  justify-content:center;
-  gap:.6rem;
-  padding:1rem;
-  backdrop-filter:blur(10px);
+  display:flex;justify-content:center;gap:.6rem;
+  padding:1rem;backdrop-filter:blur(10px);
   background:rgba(2,3,18,.55);
   border-bottom:1px solid rgba(255,255,255,.1);
 }
 nav a{
-  color:var(--text);
-  text-decoration:none;
-  padding:.6rem 1rem;
-  border-radius:999px;
+  color:var(--text);text-decoration:none;
+  padding:.6rem 1rem;border-radius:999px;
   border:1px solid rgba(255,255,255,.14);
-  background:rgba(255,255,255,.06);
-  transition:.25s ease;
+  background:rgba(255,255,255,.06);transition:.25s ease;
 }
-nav a:hover{
-  transform:translateY(-2px);
-  background:rgba(255,255,255,.12);
-}
+nav a:hover{transform:translateY(-2px);background:rgba(255,255,255,.12);}
+
+/* ---------- Header ---------- */
+header{text-align:center;padding:3rem 1rem 1.5rem;}
+header h1{margin:0;letter-spacing:6px;font-size:clamp(2rem,4vw,3rem);}
 
 /* ---------- Layout ---------- */
-.wrap{
-  width:min(1100px,92%);
-  margin:2rem auto 4rem;
-}
+.wrap{width:min(1100px,92%);margin:2rem auto 4rem;}
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:1.3rem;
 }
 
-/* ---------- Planet App Cards ---------- */
+/* ---------- Planet Cards ---------- */
 .planet{
-  position:relative;
-  border-radius:22px;
-  padding:1.2rem 1.3rem;
-  border:1px solid var(--border);
+  position:relative;border-radius:22px;
+  padding:1.4rem 1.5rem;border:1px solid var(--border);
   background:
-    radial-gradient(600px 300px at 30% 0%, rgba(255,255,255,.08), transparent 60%),
+    radial-gradient(600px 300px at 30% 0%,rgba(255,255,255,.08),transparent 60%),
     linear-gradient(180deg,var(--card),var(--card2));
   box-shadow:0 20px 50px rgba(0,0,0,.6);
   cursor:pointer;
   animation:float 9s ease-in-out infinite;
   transition:.35s ease;
 }
-.planet:nth-child(odd){animation-duration:11s}
-@keyframes float{
-  50%{transform:translateY(-10px)}
+.planet:nth-child(2){animation-duration:11s;animation-delay:.5s;}
+.planet:nth-child(3){animation-duration:10s;animation-delay:1s;}
+.planet:nth-child(4){animation-duration:12s;animation-delay:1.5s;}
+.planet:nth-child(5){animation-duration:9.5s;animation-delay:.8s;}
+@keyframes float{50%{transform:translateY(-10px)}}
+
+.planet:hover{transform:translateY(-14px) scale(1.03);}
+.planet.open{transform:translateY(-6px);border-color:rgba(116,79,255,.5);box-shadow:0 20px 60px rgba(116,79,255,.25);}
+
+/* icon row */
+.planet-icon{font-size:2rem;margin-bottom:.5rem;}
+
+.planet h3{margin:.2rem 0 .4rem;letter-spacing:3px;font-size:.9rem;}
+.planet .tagline{
+  margin:0;font-family:system-ui,'Segoe UI',Arial;
+  color:var(--muted);line-height:1.6;font-size:.85rem;
 }
 
-.planet:hover{
-  transform:translateY(-14px) scale(1.03);
-}
-
-.planet h3{
-  margin:.2rem 0 .5rem;
-  letter-spacing:3px;
-}
-.planet p{
-  margin:0;
-  font-family:system-ui,Segoe UI,Arial;
-  color:var(--muted);
-  line-height:1.6;
-}
-
-/* ---------- Expand ---------- */
+/* expand body */
 .planet-body{
-  max-height:0;
-  overflow:hidden;
-  opacity:0;
-  transition:.5s ease;
+  max-height:0;overflow:hidden;opacity:0;transition:.45s ease;
 }
 .planet.open .planet-body{
-  max-height:200px;
-  opacity:1;
-  margin-top:.7rem;
+  max-height:160px;opacity:1;margin-top:.9rem;
+}
+.planet-body p{
+  font-family:system-ui,'Segoe UI',Arial;
+  color:var(--muted);font-size:.82rem;line-height:1.7;margin:0 0 .8rem;
+}
+.planet-body .launch-btn{
+  display:inline-block;padding:.45rem 1.1rem;
+  border-radius:999px;border:1px solid rgba(116,79,255,.7);
+  background:rgba(116,79,255,.18);color:var(--text);
+  text-decoration:none;font-family:'Orbitron',sans-serif;
+  font-size:.72rem;letter-spacing:2px;
+  transition:.25s ease;
+}
+.planet-body .launch-btn:hover{background:rgba(116,79,255,.4);}
+.planet-body .coming-soon{
+  display:inline-block;padding:.4rem 1rem;
+  border-radius:999px;border:1px solid rgba(255,255,255,.15);
+  color:rgba(232,247,255,.4);font-size:.72rem;letter-spacing:2px;
 }
 
 /* ---------- Footer ---------- */
 footer{
-  text-align:center;
-  padding:2rem 1rem;
-  color:rgba(232,247,255,.5);
-  font-family:system-ui;
+  text-align:center;padding:2rem 1rem;
+  color:rgba(232,247,255,.5);font-family:system-ui;
 }
 </style>
 </head>
 
 <body>
-
 <div class="universe"></div>
 <div class="stars"></div>
-
-<header>
-  <h1>My Apps</h1>
-</header>
 
 <nav>
   <a href="index.html">Home</a>
@@ -185,61 +157,93 @@ footer{
   <a href="contact.html">Contact</a>
 </nav>
 
-    <div class="container">
-        <h2>My Apps</h2>
-        
-        <div class="app-list">
-            
-            <div class="app" onclick="location.href='devanagari-calculator.html'">
-                <h3>Devanagari Calculator</h3>
-                <p>A calculator app with Devanagari numerals.</p>
-            </div>
-            
-            <div class="app" onclick="location.href='expense-manager.html'">
-                <h3>Expense Manager</h3>
-                <p>A simple application to keep track of your finances!</p>
-            </div>
+<header>
+  <h1>MY APPS</h1>
+</header>
 
-             <div class="app" onclick="location.href='ai-maze.html'">
-                <h3>Adaptive AI maze Game</h3>
-                <p>Built on real CS: A* search, recursive maze generation, and behavioral profiling.</p>
-            </div>
+<div class="wrap">
+  <div class="grid">
 
-             <div class="app" onclick="location.href='persie-tech.html'">
-                <h3>PersieTech</h3>
-                <p>Your Personal Diet Intelligence in your pocket!</p>
-            </div>
-            
-            <div class="app">
-                <h3>File Encryptor!</h3>
-                <p>In Git-hub.</p>
-            </div>
-    
-            <div class="app">
-                <h3>Retro Arcade!</h3>
-                <p>In Git-hub.</p>
-            </div>
-        </div>
+    <div class="planet" data-link="devanagari-calculator.html">
+      <div class="planet-icon">🔢</div>
+      <h3>Devanagari Calculator</h3>
+      <p class="tagline">A calculator app with Devanagari numerals.</p>
+      <div class="planet-body">
+        <p>Experience arithmetic in Nepali script. Clean, minimal, and culturally rooted.</p>
+        <a class="launch-btn" href="devanagari-calculator.html">LAUNCH →</a>
+      </div>
+    </div>
+
+    <div class="planet" data-link="expense-manager.html">
+      <div class="planet-icon">💰</div>
+      <h3>Expense Manager</h3>
+      <p class="tagline">A simple application to keep track of your finances!</p>
+      <div class="planet-body">
+        <p>Log income and expenses, see your balance at a glance, and stay on top of your budget.</p>
+        <a class="launch-btn" href="expense-manager.html">LAUNCH →</a>
+      </div>
+    </div>
+
+    <div class="planet" data-link="persie-tech.html">
+      <div class="planet-icon">🥗</div>
+      <h3>PersieTech</h3>
+      <p class="tagline">Your Personal Diet Intelligence in your pocket!</p>
+      <div class="planet-body">
+        <p>AI-powered nutrition tracking and meal suggestions tailored to your goals.</p>
+        <a class="launch-btn" href="persie-tech.html">LAUNCH →</a>
+      </div>
+    </div>
+
+    <div class="planet" data-link="maze.html">
+      <div class="planet-icon">🧩</div>
+      <h3>AI Maze Escape</h3>
+      <p class="tagline">Escape procedural mazes while A* enemies hunt you down.</p>
+      <div class="planet-body">
+        <p>Adaptive difficulty learns your playstyle. Hunter AI, Blocker AI, fog of war, heatmap — 7 levels.</p>
+        <a class="launch-btn" href="maze.html">LAUNCH →</a>
+      </div>
+    </div>
+
+    <div class="planet">
+      <div class="planet-icon">🔐</div>
+      <h3>File Encryptor</h3>
+      <p class="tagline">Secure your files with strong encryption.</p>
+      <div class="planet-body">
+        <p>Available on GitHub. Clone and run locally.</p>
+        <span class="coming-soon">ON GITHUB</span>
+      </div>
+    </div>
+
+    <div class="planet">
+      <div class="planet-icon">🕹️</div>
+      <h3>Retro Arcade</h3>
+      <p class="tagline">Classic arcade games, reimagined.</p>
+      <div class="planet-body">
+        <p>Available on GitHub. More games coming soon.</p>
+        <span class="coming-soon">ON GITHUB</span>
+      </div>
     </div>
 
   </div>
-</main>
+</div>
 
 <footer>
   &copy; 2026 Ajaya Ghimire. All Rights Reserved.
 </footer>
 
 <script>
-const planets=document.querySelectorAll('.planet');
-planets.forEach(p=>{
-  p.addEventListener('click',e=>{
-    if(p.dataset.link){
-      if(p.classList.contains('open')){
-        window.location=p.dataset.link;
-      }
+const planets = document.querySelectorAll('.planet');
+planets.forEach(p => {
+  p.addEventListener('click', () => {
+    const isOpen = p.classList.contains('open');
+    // close all
+    planets.forEach(x => x.classList.remove('open'));
+    // if it wasn't open, open it; if already open, second click = navigate
+    if (!isOpen) {
+      p.classList.add('open');
+    } else if (p.dataset.link) {
+      window.location.href = p.dataset.link;
     }
-    planets.forEach(x=>x!==p&&x.classList.remove('open'));
-    p.classList.toggle('open');
   });
 });
 </script>
