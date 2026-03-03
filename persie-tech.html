@@ -1,198 +1,550 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>PersieTech — Personal Dietary Technology.</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8"/>
+  <title>PersieTech — Personal Dietary Technology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    :root {
+      --bg: #040910;
+      --surface: rgba(255,255,255,0.04);
+      --surface2: rgba(255,255,255,0.07);
+      --border: rgba(255,255,255,0.09);
+      --border2: rgba(255,255,255,0.15);
+      --text: #f0f6ff;
+      --muted: rgba(240,246,255,0.5);
+      --green: #22c55e;
+      --blue: #38bdf8;
+      --amber: #fbbf24;
+      --red: #f87171;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: radial-gradient(circle at top left,#1db95433,transparent 40%),
-                  radial-gradient(circle at bottom right,#4f46e533,transparent 40%),
-                  #05070b;
-      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
+      overflow-x: hidden;
     }
-
-    header {
-      padding: 40px;
-      text-align: center;
+    .bg-mesh {
+      position: fixed; inset: 0; z-index: -1;
+      background:
+        radial-gradient(ellipse 900px 600px at 10% 10%, rgba(34,197,94,0.07), transparent 60%),
+        radial-gradient(ellipse 700px 500px at 90% 80%, rgba(56,189,248,0.08), transparent 60%),
+        #040910;
     }
-
-    header h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      background: linear-gradient(90deg,#22c55e,#3b82f6,#a855f7);
-      -webkit-background-clip: text;
-      color: transparent;
+    .bg-grid {
+      position: fixed; inset: 0; z-index: -1;
+      background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
     }
-
-    header p {
-      color: #aaa;
-      margin-top: 10px;
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 40px;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+      background: rgba(4,9,16,0.7);
+      position: sticky; top: 0; z-index: 100;
     }
-
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 40px;
+    .nav-logo {
+      font-family: 'DM Serif Display', serif; font-size: 1.4rem;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-      gap: 20px;
+    .nav-badge {
+      font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em;
+      background: var(--surface2); border: 1px solid var(--border2);
+      padding: 5px 12px; border-radius: 999px;
     }
-
-    .card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 20px;
-      padding: 25px;
-      backdrop-filter: blur(12px);
-      transition: transform .3s;
+    .hero {
+      text-align: center; padding: 80px 20px 60px;
+      max-width: 720px; margin: 0 auto;
     }
-
-    .card:hover { transform: translateY(-6px); }
-
-    .card h3 {
-      font-size: 0.9rem;
-      color: #bbb;
+    .hero-eyebrow {
+      font-size: 0.75rem; letter-spacing: 0.2em; color: var(--green);
+      text-transform: uppercase; margin-bottom: 18px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
     }
-
-    .card .value {
-      font-size: 2.2rem;
-      font-weight: 800;
-      margin-top: 10px;
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: ''; display: block; height: 1px; width: 40px;
+      background: linear-gradient(90deg, transparent, var(--green));
     }
-
-    .section {
-      margin-top: 60px;
+    .hero-eyebrow::after { transform: scaleX(-1); }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.15; margin-bottom: 16px;
     }
-
-    .section h2 {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
+    .hero h1 em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--green), var(--blue));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
+    .hero p { color: var(--muted); font-size: 1.05rem; line-height: 1.7; max-width: 520px; margin: 0 auto 10px; }
+    .hero-credit { font-size: 0.78rem; color: rgba(240,246,255,0.3); margin-top: 10px; font-style: italic; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+    .upload-zone {
+      border: 2px dashed var(--border2); border-radius: 20px;
+      padding: 56px 32px; text-align: center;
+      background: var(--surface); cursor: pointer;
+      transition: all 0.3s ease; position: relative; overflow: hidden; margin-bottom: 32px;
     }
-
-    table th, table td {
-      padding: 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      text-align: left;
+    .upload-zone::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at center, rgba(34,197,94,0.06), transparent 70%);
+      opacity: 0; transition: opacity 0.3s;
     }
-
-    table th {
-      color: #aaa;
-      font-size: 0.85rem;
+    .upload-zone:hover, .upload-zone.drag-over { border-color: var(--green); background: rgba(34,197,94,0.05); }
+    .upload-zone:hover::before, .upload-zone.drag-over::before { opacity: 1; }
+    .upload-icon { font-size: 3rem; margin-bottom: 16px; display: block; filter: drop-shadow(0 0 20px rgba(34,197,94,0.4)); }
+    .upload-zone h3 { font-family: 'DM Serif Display', serif; font-size: 1.4rem; margin-bottom: 8px; }
+    .upload-zone p { color: var(--muted); font-size: 0.9rem; }
+    .upload-zone .formats { display: flex; gap: 8px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+    .format-tag {
+      background: var(--surface2); border: 1px solid var(--border);
+      padding: 4px 10px; border-radius: 6px; font-size: 0.72rem;
+      color: var(--muted); letter-spacing: 0.05em;
     }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: #666;
-      font-size: 0.85rem;
+    #file-input { display: none; }
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px; }
+    @media(max-width:560px){ .info-grid { grid-template-columns: 1fr; } }
+    .field label { display: block; font-size: 0.75rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 7px; }
+    .field input, .field select {
+      width: 100%; background: var(--surface2); border: 1px solid var(--border2);
+      border-radius: 10px; padding: 12px 14px; color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; transition: border-color 0.2s; outline: none;
     }
-
-    .badge {
-      display: inline-block;
-      background: rgba(34,197,94,0.2);
-      border: 1px solid rgba(34,197,94,0.4);
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      margin-top: 15px;
+    .field input:focus, .field select:focus { border-color: var(--green); }
+    .field select option { background: #0d1520; }
+    .analyze-btn {
+      width: 100%; padding: 16px;
+      background: linear-gradient(135deg, rgba(34,197,94,0.25), rgba(56,189,248,0.15));
+      border: 1px solid rgba(34,197,94,0.4); border-radius: 14px; color: var(--text);
+      font-family: 'DM Serif Display', serif; font-size: 1.2rem;
+      cursor: pointer; transition: all 0.3s; letter-spacing: 0.02em; margin-bottom: 40px;
     }
+    .analyze-btn:hover {
+      background: linear-gradient(135deg, rgba(34,197,94,0.35), rgba(56,189,248,0.25));
+      border-color: rgba(34,197,94,0.7); transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(34,197,94,0.2);
+    }
+    .analyze-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .loading { display: none; text-align: center; padding: 60px 20px; }
+    .loading.active { display: block; }
+    .pulse-ring {
+      width: 64px; height: 64px; margin: 0 auto 20px;
+      border: 2px solid transparent; border-top-color: var(--green); border-right-color: var(--blue);
+      border-radius: 50%; animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading p { color: var(--muted); font-size: 0.9rem; }
+    .loading-steps { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; align-items: center; }
+    .loading-step { font-size: 0.8rem; color: var(--muted); opacity: 0; animation: fadeStep 0.5s ease forwards; }
+    .loading-step:nth-child(1){ animation-delay: 0.3s; }
+    .loading-step:nth-child(2){ animation-delay: 1.4s; }
+    .loading-step:nth-child(3){ animation-delay: 2.8s; }
+    .loading-step:nth-child(4){ animation-delay: 4.2s; }
+    @keyframes fadeStep { to { opacity: 1; } }
+    #results { display: none; }
+    #results.visible { display: block; animation: fadeUp 0.5s ease; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+    .results-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
+    .results-header h2 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; }
+    .results-header .timestamp { font-size: 0.8rem; color: var(--muted); }
+    .result-section {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 18px; padding: 28px; margin-bottom: 20px; transition: border-color 0.2s;
+    }
+    .result-section:hover { border-color: var(--border2); }
+    .section-title { font-family: 'DM Serif Display', serif; font-size: 1.2rem; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .findings-table { width: 100%; border-collapse: collapse; }
+    .findings-table th { text-align: left; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 8px 12px; border-bottom: 1px solid var(--border); }
+    .findings-table td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.88rem; vertical-align: top; }
+    .findings-table tr:last-child td { border-bottom: none; }
+    .status-badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; white-space: nowrap; }
+    .status-high { background: rgba(248,113,113,0.15); color: var(--red); border: 1px solid rgba(248,113,113,0.3); }
+    .status-low  { background: rgba(251,191,36,0.15); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
+    .status-normal { background: rgba(34,197,94,0.12); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+    .meal-day { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 14px; }
+    .meal-day-header { background: var(--surface2); padding: 12px 18px; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+    .meal-row { display: grid; grid-template-columns: 100px 1fr auto; padding: 13px 18px; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.87rem; align-items: start; gap: 12px; }
+    .meal-row:last-child { border-bottom: none; }
+    .meal-type { color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; padding-top: 2px; }
+    .meal-cal { color: var(--green); font-size: 0.8rem; white-space: nowrap; }
+    .macro-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; }
+    .macro-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+    .macro-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+    .macro-value { font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; }
+    .macro-bar { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.08); overflow: hidden; }
+    .macro-fill { height: 100%; border-radius: 2px; transition: width 1s ease; }
+    .tips-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .tips-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 0.88rem; line-height: 1.6; color: rgba(240,246,255,0.85); }
+    .tip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); margin-top: 8px; flex-shrink: 0; }
+    .disclaimer { background: rgba(251,191,36,0.06); border: 1px solid rgba(251,191,36,0.2); border-radius: 12px; padding: 16px 20px; font-size: 0.8rem; color: rgba(251,191,36,0.8); margin-top: 24px; line-height: 1.6; }
+    .reset-btn { display: block; width: 100%; margin-top: 24px; padding: 13px; background: var(--surface2); border: 1px solid var(--border2); border-radius: 12px; color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 0.88rem; cursor: pointer; transition: all 0.2s; text-align: center; }
+    .reset-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.3); }
+    footer { text-align: center; padding: 32px 20px; color: rgba(240,246,255,0.2); font-size: 0.8rem; border-top: 1px solid var(--border); }
   </style>
 </head>
-
 <body>
+<div class="bg-mesh"></div>
+<div class="bg-grid"></div>
 
-<header>
-  <h1>PersieTech</h1>
-  <p>Personal Dietary Technology --- [Supported by Ms. Manu Khawas, Graduate in Dietetics, YSU '26]</p>
-  <div class="badge">AI-Ready • Nutrition • Analytics</div>
-</header>
+<nav>
+  <span class="nav-logo">PersieTech</span>
+  <span class="nav-badge">AI · Nutrition · Analytics</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Personal Dietary Technology</div>
+  <h1>Your Lab Report.<br/><em>Your Nutrition Plan.</em></h1>
+  <p>Upload your blood work or lab report and receive a personalized, AI-generated nutrition plan tailored to your actual biomarkers.</p>
+  <div class="hero-credit">Supported by Ms. Manu Khawas, Graduate in Dietetics, YSU '26</div>
+</div>
 
 <div class="container">
 
-  <div class="cards">
-    <div class="card">
-      <h3>Calories Today</h3>
-      <div class="value">1,840</div>
+  <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+    <span class="upload-icon">🧬</span>
+    <h3>Upload Your Lab Report</h3>
+    <p>Drag & drop or click to browse your file</p>
+    <div class="formats">
+      <span class="format-tag">PDF</span>
+      <span class="format-tag">PNG</span>
+      <span class="format-tag">JPG</span>
     </div>
-    <div class="card">
-      <h3>Protein</h3>
-      <div class="value">132g</div>
+    <input type="file" id="file-input" accept=".pdf,.png,.jpg,.jpeg"/>
+  </div>
+
+  <div class="info-grid">
+    <div class="field">
+      <label>Full Name</label>
+      <input type="text" id="patient-name" placeholder="e.g. Ajaya Ghimire"/>
     </div>
-    <div class="card">
-      <h3>Carbs</h3>
-      <div class="value">198g</div>
+    <div class="field">
+      <label>Age</label>
+      <input type="number" id="patient-age" placeholder="e.g. 24" min="1" max="120"/>
     </div>
-    <div class="card">
-      <h3>Fat</h3>
-      <div class="value">61g</div>
+    <div class="field">
+      <label>Biological Sex</label>
+      <select id="patient-sex">
+        <option value="">Select...</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other / Prefer not to say</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Health Goal</label>
+      <select id="health-goal">
+        <option value="">Select...</option>
+        <option value="weight loss">Weight Loss</option>
+        <option value="muscle gain">Muscle Gain</option>
+        <option value="manage diabetes">Manage Diabetes</option>
+        <option value="heart health">Heart Health</option>
+        <option value="general wellness">General Wellness</option>
+        <option value="energy & fatigue">Improve Energy / Reduce Fatigue</option>
+        <option value="gut health">Gut Health</option>
+      </select>
     </div>
   </div>
 
-  <div class="section">
-    <h2>Today's Meals</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Meal</th>
-          <th>Description</th>
-          <th>Calories</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Breakfast</td>
-          <td>Oats, Banana, Peanut Butter</td>
-          <td>420</td>
-        </tr>
-        <tr>
-          <td>Lunch</td>
-          <td>Chicken Rice Bowl</td>
-          <td>620</td>
-        </tr>
-        <tr>
-          <td>Snack</td>
-          <td>Greek Yogurt</td>
-          <td>220</td>
-        </tr>
-        <tr>
-          <td>Dinner</td>
-          <td>Salmon & Vegetables</td>
-          <td>580</td>
-        </tr>
-      </tbody>
-    </table>
+  <button class="analyze-btn" id="analyze-btn" onclick="runAnalysis()">
+    ✦ Analyze Lab Report & Generate Nutrition Plan
+  </button>
+
+  <div class="loading" id="loading">
+    <div class="pulse-ring"></div>
+    <p>PersieTech AI is analyzing your report…</p>
+    <div class="loading-steps">
+      <div class="loading-step">📄 Reading lab values…</div>
+      <div class="loading-step">🔬 Identifying biomarker flags…</div>
+      <div class="loading-step">🧮 Calculating macro targets…</div>
+      <div class="loading-step">🥗 Building personalized meal plan…</div>
+    </div>
   </div>
 
-  <div class="section">
-    <h2>About PersieTech</h2>
-    <p style="color:#bbb; max-width:700px;">
-      PersieTech is a personal dietician web application designed to track meals,
-      analyze macros, and provide intelligent nutrition insights.
-      Built as part of my personal software portfolio.
-    </p>
+  <div id="results">
+    <div class="results-header">
+      <h2>Your Personalized Report</h2>
+      <span class="timestamp" id="result-timestamp"></span>
+    </div>
+    <div id="results-content"></div>
   </div>
 
 </div>
 
 <footer>
-  © 2025 PersieTech • Built by Ajaya Ghimire
+  © 2026 PersieTech · Built by Ajaya Ghimire · Powered by Claude AI
 </footer>
 
+<script>
+  let uploadedFile = null;
+
+  const zone = document.getElementById('upload-zone');
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault(); zone.classList.remove('drag-over');
+    const f = e.dataTransfer.files[0];
+    if (f) handleFile(f);
+  });
+  document.getElementById('file-input').addEventListener('change', e => {
+    if (e.target.files[0]) handleFile(e.target.files[0]);
+  });
+
+  function handleFile(f) {
+    uploadedFile = f;
+    zone.innerHTML = `
+      <span class="upload-icon">✅</span>
+      <h3>${f.name}</h3>
+      <p style="color:var(--green)">${(f.size/1024).toFixed(1)} KB · Ready to analyze</p>
+      <div class="formats"><span class="format-tag">Click to change file</span></div>
+      <input type="file" id="file-input" accept=".pdf,.png,.jpg,.jpeg" style="display:none"/>
+    `;
+    zone.querySelector('#file-input').addEventListener('change', e => {
+      if (e.target.files[0]) handleFile(e.target.files[0]);
+    });
+  }
+
+  async function fileToBase64(file) {
+    return new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = () => res(r.result.split(',')[1]);
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+  }
+
+  async function runAnalysis() {
+    if (!uploadedFile) { alert('Please upload a lab report first.'); return; }
+
+    const name = document.getElementById('patient-name').value.trim() || 'Patient';
+    const age  = document.getElementById('patient-age').value.trim() || 'unknown age';
+    const sex  = document.getElementById('patient-sex').value || 'unspecified';
+    const goal = document.getElementById('health-goal').value || 'general wellness';
+
+    document.getElementById('analyze-btn').disabled = true;
+    document.getElementById('loading').classList.add('active');
+    document.getElementById('results').classList.remove('visible');
+    document.getElementById('results').style.display = 'none';
+
+    try {
+      const base64 = await fileToBase64(uploadedFile);
+      const isImage = uploadedFile.type.startsWith('image/');
+      const isPDF   = uploadedFile.type === 'application/pdf';
+
+      const contentParts = [];
+
+      if (isImage) {
+        contentParts.push({ type: 'image', source: { type: 'base64', media_type: uploadedFile.type, data: base64 } });
+      } else if (isPDF) {
+        contentParts.push({ type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: base64 } });
+      }
+
+      contentParts.push({
+        type: 'text',
+        text: `You are PersieTech AI, a clinical nutrition analyzer co-developed with a registered dietetics graduate.
+
+Patient: ${name}, Age: ${age}, Sex: ${sex}, Goal: ${goal}
+
+Analyze the attached lab report thoroughly. Respond ONLY with a valid JSON object (no markdown, no extra text) in this exact structure:
+
+{
+  "patient_summary": "2-3 sentence summary of key health picture from the labs",
+  "findings": [
+    { "marker": "marker name", "value": "value + unit", "reference": "normal range", "status": "HIGH|LOW|NORMAL", "nutrition_impact": "brief clinical note" }
+  ],
+  "daily_macros": {
+    "calories": 2100,
+    "protein_g": 140,
+    "carbs_g": 220,
+    "fat_g": 70,
+    "fiber_g": 35,
+    "water_l": 2.8
+  },
+  "meal_plan": [
+    {
+      "day": "Day 1",
+      "meals": [
+        { "type": "Breakfast", "description": "specific meal", "calories": 480 },
+        { "type": "Lunch", "description": "specific meal", "calories": 620 },
+        { "type": "Snack", "description": "specific snack", "calories": 200 },
+        { "type": "Dinner", "description": "specific meal", "calories": 600 }
+      ]
+    },
+    { "day": "Day 2", "meals": [...] },
+    { "day": "Day 3", "meals": [...] }
+  ],
+  "priority_nutrients": ["nutrient 1", "nutrient 2", "nutrient 3"],
+  "foods_to_emphasize": ["food1", "food2", "food3", "food4", "food5"],
+  "foods_to_limit": ["food1", "food2", "food3"],
+  "lifestyle_tips": ["tip1", "tip2", "tip3", "tip4"],
+  "follow_up": "recommendation for follow-up testing or medical consultation"
+}
+
+Be specific to the actual lab values. Tailor everything to the patient's goal (${goal}) and any abnormal markers. Use real, practical foods.`
+      });
+
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 3000,
+          messages: [{ role: 'user', content: contentParts }]
+        })
+      });
+
+      const data = await response.json();
+      if (data.error) throw new Error(data.error.message);
+
+      const raw = data.content.map(b => b.text || '').join('');
+      const clean = raw.replace(/```json|```/g, '').trim();
+      const result = JSON.parse(clean);
+
+      document.getElementById('loading').classList.remove('active');
+      renderResults(result, name);
+
+    } catch (err) {
+      document.getElementById('loading').classList.remove('active');
+      document.getElementById('analyze-btn').disabled = false;
+      alert('Analysis failed: ' + err.message);
+      console.error(err);
+    }
+  }
+
+  function renderResults(r, name) {
+    document.getElementById('result-timestamp').textContent =
+      new Date().toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric', hour:'2-digit', minute:'2-digit' });
+
+    const macros = r.daily_macros || {};
+    const maxCal = macros.calories || 2000;
+    const protPct = Math.round(((macros.protein_g||0)*4/maxCal)*100);
+    const carbPct = Math.round(((macros.carbs_g||0)*4/maxCal)*100);
+    const fatPct  = Math.round(((macros.fat_g||0)*9/maxCal)*100);
+
+    const sc = s => s==='HIGH'?'status-high':s==='LOW'?'status-low':'status-normal';
+
+    const findingsRows = (r.findings||[]).map(f => `
+      <tr>
+        <td><strong>${f.marker}</strong></td>
+        <td>${f.value}</td>
+        <td style="color:var(--muted)">${f.reference}</td>
+        <td><span class="status-badge ${sc(f.status)}">${f.status}</span></td>
+        <td style="color:var(--muted)">${f.nutrition_impact}</td>
+      </tr>`).join('');
+
+    const mealDays = (r.meal_plan||[]).map(day => `
+      <div class="meal-day">
+        <div class="meal-day-header">${day.day}</div>
+        ${(day.meals||[]).map(m=>`
+          <div class="meal-row">
+            <div class="meal-type">${m.type}</div>
+            <div>${m.description}</div>
+            <div class="meal-cal">${m.calories} kcal</div>
+          </div>`).join('')}
+      </div>`).join('');
+
+    const tipsList = (r.lifestyle_tips||[]).map(t=>`<li><div class="tip-dot"></div><span>${t}</span></li>`).join('');
+    const emphasize = (r.foods_to_emphasize||[]).map(f=>`<span class="format-tag" style="color:var(--green);border-color:rgba(34,197,94,0.3)">${f}</span>`).join('');
+    const limit = (r.foods_to_limit||[]).map(f=>`<span class="format-tag" style="color:var(--red);border-color:rgba(248,113,113,0.3)">${f}</span>`).join('');
+    const nutrients = (r.priority_nutrients||[]).map(n=>`<span class="format-tag" style="color:var(--blue);border-color:rgba(56,189,248,0.3)">${n}</span>`).join('');
+
+    document.getElementById('results-content').innerHTML = `
+      <div class="result-section">
+        <div class="section-title"><span>🩺</span> Health Summary — ${name}</div>
+        <p style="color:rgba(240,246,255,0.8);line-height:1.75;font-size:0.92rem">${r.patient_summary||''}</p>
+        ${nutrients?`<div style="margin-top:14px"><p style="font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Priority Nutrients</p><div style="display:flex;flex-wrap:wrap;gap:8px">${nutrients}</div></div>`:''}
+      </div>
+
+      ${findingsRows?`
+      <div class="result-section">
+        <div class="section-title"><span>🔬</span> Lab Findings</div>
+        <div style="overflow-x:auto">
+          <table class="findings-table">
+            <thead><tr><th>Marker</th><th>Your Value</th><th>Reference</th><th>Status</th><th>Nutrition Note</th></tr></thead>
+            <tbody>${findingsRows}</tbody>
+          </table>
+        </div>
+      </div>`:''}
+
+      <div class="result-section">
+        <div class="section-title"><span>📊</span> Daily Macro Targets</div>
+        <div class="macro-grid">
+          <div class="macro-card">
+            <div class="macro-label">Calories</div>
+            <div class="macro-value" style="color:var(--text)">${(macros.calories||0).toLocaleString()}</div>
+            <div style="font-size:0.72rem;color:var(--muted)">kcal / day</div>
+          </div>
+          <div class="macro-card">
+            <div class="macro-label">Protein</div>
+            <div class="macro-value" style="color:var(--blue)">${macros.protein_g||0}g</div>
+            <div class="macro-bar"><div class="macro-fill" style="width:${protPct}%;background:var(--blue)"></div></div>
+          </div>
+          <div class="macro-card">
+            <div class="macro-label">Carbs</div>
+            <div class="macro-value" style="color:var(--amber)">${macros.carbs_g||0}g</div>
+            <div class="macro-bar"><div class="macro-fill" style="width:${carbPct}%;background:var(--amber)"></div></div>
+          </div>
+          <div class="macro-card">
+            <div class="macro-label">Fat</div>
+            <div class="macro-value" style="color:var(--green)">${macros.fat_g||0}g</div>
+            <div class="macro-bar"><div class="macro-fill" style="width:${fatPct}%;background:var(--green)"></div></div>
+          </div>
+          <div class="macro-card">
+            <div class="macro-label">Fiber</div>
+            <div class="macro-value" style="color:var(--muted)">${macros.fiber_g||0}g</div>
+          </div>
+          <div class="macro-card">
+            <div class="macro-label">Water</div>
+            <div class="macro-value" style="color:#a78bfa">${macros.water_l||0}L</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-section">
+        <div class="section-title"><span>🥗</span> 3-Day Meal Plan</div>
+        ${mealDays}
+      </div>
+
+      <div class="result-section">
+        <div class="section-title"><span>🛒</span> Food Guidance</div>
+        <div style="margin-bottom:18px">
+          <p style="font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">✅ Emphasize</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">${emphasize}</div>
+        </div>
+        <div>
+          <p style="font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">⚠️ Limit or Avoid</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">${limit}</div>
+        </div>
+      </div>
+
+      ${tipsList?`
+      <div class="result-section">
+        <div class="section-title"><span>💡</span> Lifestyle Recommendations</div>
+        <ul class="tips-list">${tipsList}</ul>
+      </div>`:''}
+
+      ${r.follow_up?`
+      <div class="result-section">
+        <div class="section-title"><span>📅</span> Follow-Up</div>
+        <p style="color:rgba(240,246,255,0.8);line-height:1.75;font-size:0.92rem">${r.follow_up}</p>
+      </div>`:''}
+
+      <div class="disclaimer">
+        ⚠️ <strong>Medical Disclaimer:</strong> PersieTech provides nutritional guidance for informational purposes only. This is not a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider before making significant dietary changes based on lab results.
+      </div>
+
+      <button class="reset-btn" onclick="location.reload()">← Analyze Another Report</button>
+    `;
+
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('results').classList.add('visible');
+    document.getElementById('analyze-btn').disabled = false;
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
 </body>
 </html>
-
