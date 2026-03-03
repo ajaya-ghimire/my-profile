@@ -387,7 +387,8 @@ Analyze the attached lab report thoroughly. Respond ONLY with a valid JSON objec
 Be specific to the actual lab values. Tailor everything to the patient's goal (${goal}) and any abnormal markers. Use real, practical foods.`
       });
 
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
+      // Calls Netlify serverless function (avoids CORS)
+      const response = await fetch('/.netlify/functions/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
