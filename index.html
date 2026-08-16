@@ -1,57 +1,416 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ajaya Ghimire — IAM & Identity Security</title>
-<meta name="description" content="Ajaya Ghimire — IAM Engineer and Identity Security Specialist.">
-<link rel="icon" href="assets/logo/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Syne:wght@500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#020610;--panel:rgba(8,18,36,.60);--line:rgba(112,168,236,.14);
-  --text:#f1f8ff;--muted:#93a8bb;--cyan:#14d7ff;--blue:#3f7bff;--violet:#9366ff;--pink:#d45dff;--green:#35e7a4;
-  --mono:"Space Mono",monospace;--sans:"Syne",sans-serif;--body:"Inter",sans-serif;
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>
+   Ajaya Ghimire &mdash; IAM &amp; Identity Security
+  </title>
+  <meta content="Ajaya Ghimire &mdash; IAM Engineer and Identity Security Specialist." name="description"/>
+  <link href="assets/logo/favicon.png" rel="icon"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Mono:wght@400;700&amp;family=Syne:wght@500;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+:root {
+  --bg:#020610;
+  --panel:rgba(8,18,36,.60);
+  --line:rgba(112,168,236,.14);
+  --text:#f1f8ff;
+  --muted:#93a8bb;
+  --cyan:#14d7ff;
+  --blue:#3f7bff;
+  --violet:#9366ff;
+  --pink:#d45dff;
+  --green:#35e7a4;
+  --mono:"Space Mono",monospace;
+  --sans:"Syne",sans-serif;
+  --body:"Inter",sans-serif;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;background:var(--bg);font-size:16.25px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
-body{margin:0;color:var(--text);font-family:var(--body);overflow-x:hidden;background:#020610 url("assets/backgrounds/space-bg.png") center top/cover fixed no-repeat}
-body:before{content:"";position:fixed;inset:0;z-index:-5;background:linear-gradient(180deg,rgba(1,5,13,.16),rgba(2,6,16,.52) 45%,rgba(2,6,16,.73));pointer-events:none}
-a{color:inherit}button{font:inherit}
-#stars{position:fixed;inset:0;width:100%;height:100%;z-index:-6}
-.progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:1000;background:linear-gradient(90deg,var(--cyan),var(--blue),var(--violet),var(--green));box-shadow:0 0 18px rgba(20,215,255,.45)}
-.wrap{width:min(1180px,calc(100% - 48px));margin:auto}
-.reveal{opacity:0;transform:translateY(22px);transition:.7s cubic-bezier(.2,.7,.2,1)}.reveal.on{opacity:1;transform:none}
-.section-title{text-align:center;font:400 .61rem var(--mono);letter-spacing:.34em;color:#d7e2ec;text-transform:uppercase;margin-bottom:1.9rem}
-.section-title:after{content:"";display:block;width:34px;height:2px;margin:.8rem auto 0;background:linear-gradient(90deg,var(--cyan),var(--violet))}
+
+* {
+  box-sizing:border-box
+}
+
+html {
+  scroll-behavior:smooth;
+  background:var(--bg);
+  font-size:16.25px;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility
+}
+
+body {
+  margin:0;
+  color:var(--text);
+  font-family:var(--body);
+  overflow-x:hidden;
+  background:#020610 url("assets/backgrounds/space-bg.png") center top/cover fixed no-repeat
+}
+
+body:before {
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-5;
+  background:linear-gradient(180deg,rgba(1,5,13,.16),rgba(2,6,16,.52) 45%,rgba(2,6,16,.73));
+  pointer-events:none
+}
+
+a {
+  color:inherit
+}
+
+button {
+  font:inherit
+}
+
+#stars {
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:-6
+}
+
+.progress {
+  position:fixed;
+  top:0;
+  left:0;
+  height:2px;
+  width:0;
+  z-index:1000;
+  background:linear-gradient(90deg,var(--cyan),var(--blue),var(--violet),var(--green));
+  box-shadow:0 0 18px rgba(20,215,255,.45)
+}
+
+.wrap {
+  width:min(1180px,calc(100% - 48px));
+  margin:auto
+}
+
+.reveal {
+  opacity:0;
+  transform:translateY(22px);
+  transition:.7s cubic-bezier(.2,.7,.2,1)
+}
+
+.reveal.on {
+  opacity:1;
+  transform:none
+}
+
+.section-title {
+  text-align:center;
+  font:400 .61rem var(--mono);
+  letter-spacing:.34em;
+  color:#d7e2ec;
+  text-transform:uppercase;
+  margin-bottom:1.9rem
+}
+
+.section-title:after {
+  content:"";
+  display:block;
+  width:34px;
+  height:2px;
+  margin:.8rem auto 0;
+  background:linear-gradient(90deg,var(--cyan),var(--violet))
+}
 
 /* intro */
-.intro-scene{height:168vh;position:relative}.intro-sticky{position:sticky;top:0;height:100vh;overflow:hidden;background:#020610 url("assets/backgrounds/intro-bg.png") center/cover no-repeat}.intro-fade{position:absolute;inset:0}
-.scroll-center{position:absolute;left:50%;bottom:23px;transform:translateX(-50%);z-index:4;color:#e5f2fb;text-align:center;font:400 .62rem var(--mono);letter-spacing:.31em;text-shadow:0 0 18px rgba(20,215,255,.5);animation:breathe 1.8s ease-in-out infinite}
-.scroll-center .mouse{width:18px;height:31px;border:1px solid rgba(195,230,255,.75);border-radius:10px;margin:.6rem auto 0;position:relative}.scroll-center .mouse:after{content:"";position:absolute;left:50%;top:5px;width:2px;height:6px;background:var(--cyan);border-radius:3px;transform:translateX(-50%);animation:wheel 1.4s infinite}
-@keyframes breathe{50%{opacity:.5}}@keyframes wheel{to{transform:translate(-50%,10px);opacity:0}}
+.intro-scene {
+  height:168vh;
+  position:relative
+}
+
+.intro-sticky {
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow:hidden;
+  background:#020610 url("assets/backgrounds/intro-bg.png") center/cover no-repeat
+}
+
+.intro-fade {
+  position:absolute;
+  inset:0
+}
+
+.scroll-center {
+  position:absolute;
+  left:50%;
+  bottom:23px;
+  transform:translateX(-50%);
+  z-index:4;
+  color:#e5f2fb;
+  text-align:center;
+  font:400 .62rem var(--mono);
+  letter-spacing:.31em;
+  text-shadow:0 0 18px rgba(20,215,255,.5);
+  animation:breathe 1.8s ease-in-out infinite
+}
+
+.scroll-center .mouse {
+  width:18px;
+  height:31px;
+  border:1px solid rgba(195,230,255,.75);
+  border-radius:10px;
+  margin:.6rem auto 0;
+  position:relative
+}
+
+.scroll-center .mouse:after {
+  content:"";
+  position:absolute;
+  left:50%;
+  top:5px;
+  width:2px;
+  height:6px;
+  background:var(--cyan);
+  border-radius:3px;
+  transform:translateX(-50%);
+  animation:wheel 1.4s infinite
+}
+
+.mobile-intro {
+  display:none
+}
+
+.mobile-intro-logo {
+  display:block;
+  width:min(58vw,280px);
+  height:auto;
+  filter:drop-shadow(0 12px 34px rgba(77,109,255,.28))
+}
+
+.mobile-intro-brand {
+  margin-top:1.05rem;
+  font:400 1.12rem/1 var(--mono);
+  letter-spacing:.30em;
+  color:#10eaff;
+  text-align:center
+}
+
+.mobile-intro-brand span {
+  color:#eef7ff
+}
+
+.mobile-intro-loader {
+  width:min(34vw,190px);
+  height:5px;
+  border-radius:999px;
+  margin:1.8rem auto 1.45rem;
+  background:rgba(255,255,255,.12);
+  position:relative;
+  overflow:hidden;
+  box-shadow:inset 0 0 0 1px rgba(135,180,255,.05)
+}
+
+.mobile-intro-loader span {
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:24%;
+  border-radius:999px;
+  background:linear-gradient(90deg,#8ff0ff,#62b8ff,#6d6aff);
+  box-shadow:0 0 16px rgba(99,181,255,.55)
+}
+
+.mobile-intro-init {
+  text-align:center;
+  font:400 .92rem/1.4 var(--mono);
+  letter-spacing:.28em;
+  color:#f0f7ff;
+  opacity:.93;
+  padding:0 .6rem
+}
+
+@keyframes breathe {
+  50% {
+    opacity:.5
+  }
+}
+
+@keyframes wheel {
+  to {
+    transform:translate(-50%,10px);
+    opacity:0
+  }
+}
 
 /* nav */
-.nav{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:160;padding:.34rem;display:flex;gap:.34rem;border-radius:999px;background:rgba(3,9,19,.34);backdrop-filter:blur(18px);border:1px solid rgba(120,175,235,.08);opacity:0;pointer-events:none;transition:.3s}
-.nav.visible{opacity:1;pointer-events:auto}.nav a{font-size:.61rem;text-decoration:none;color:#92a7ba;padding:.48rem .72rem;border-radius:999px}.nav a:hover{color:white;background:rgba(255,255,255,.05)}
+.nav {
+  position:fixed;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:160;
+  padding:.34rem;
+  display:flex;
+  gap:.34rem;
+  border-radius:999px;
+  background:rgba(3,9,19,.34);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(120,175,235,.08);
+  opacity:0;
+  pointer-events:none;
+  transition:.3s
+}
+
+.nav.visible {
+  opacity:1;
+  pointer-events:auto
+}
+
+.nav a {
+  font-size:.61rem;
+  text-decoration:none;
+  color:#92a7ba;
+  padding:.48rem .72rem;
+  border-radius:999px
+}
+
+.nav a:hover {
+  color:white;
+  background:rgba(255,255,255,.05)
+}
 
 /* hero */
-.hero-scene{height:130vh;position:relative}.hero-sticky{position:sticky;top:0;height:100vh;display:grid;align-items:center;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1fr .88fr;gap:4.6rem;align-items:center}
-.hello{font:400 .69rem var(--mono);color:var(--green);margin-bottom:1rem}.hero h1{margin:0;font:600 clamp(4rem,7vw,6.5rem)/.94 var(--sans);letter-spacing:-.05em}.hero h1 .last{background:linear-gradient(90deg,var(--blue),var(--violet),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
-.role{margin-top:1.05rem;color:#cad5df;font-size:clamp(1.02rem,1.35vw,1.24rem)}.hero-copy{max-width:620px;margin-top:1.35rem;color:#93a8bb;line-height:1.86;font-size:.9rem}
-.connect{display:flex;gap:.8rem;align-items:center;margin-top:1.9rem}.connect small{font-size:.58rem;color:#667d91;margin-right:.35rem}.social-img{width:38px;height:38px;border-radius:9px;display:block;transition:.2s;opacity:.88}.social-img:hover{transform:translateY(-3px);opacity:1}
-.hero-logo-wrap{min-height:440px;display:grid;place-items:center;position:relative}.hero-logo-wrap:before{content:"";position:absolute;width:410px;height:410px;border-radius:50%;background:radial-gradient(circle,rgba(64,113,255,.15),transparent 68%);filter:blur(8px)}
-.hero-logo{position:relative;width:min(330px,72%);filter:drop-shadow(0 20px 45px rgba(55,80,255,.2))}.hero-logo img{width:100%;display:block}.hero-caption{position:absolute;bottom:60px;font:400 .57rem var(--mono);letter-spacing:.25em;color:#6b8195}
+.hero-scene {
+  height:130vh;
+  position:relative
+}
+
+.hero-sticky {
+  position:sticky;
+  top:0;
+  height:100vh;
+  display:grid;
+  align-items:center;
+  overflow:hidden
+}
+
+.hero-grid {
+  display:grid;
+  grid-template-columns:1fr .88fr;
+  gap:4.6rem;
+  align-items:center
+}
+
+.hello {
+  font:400 .69rem var(--mono);
+  color:var(--green);
+  margin-bottom:1rem
+}
+
+.hero h1 {
+  margin:0;
+  font:600 clamp(4rem,7vw,6.5rem)/.94 var(--sans);
+  letter-spacing:-.05em
+}
+
+.hero h1 .last {
+  background:linear-gradient(90deg,var(--blue),var(--violet),var(--pink));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent
+}
+
+.role {
+  margin-top:1.05rem;
+  color:#cad5df;
+  font-size:clamp(1.02rem,1.35vw,1.24rem)
+}
+
+.hero-copy {
+  max-width:620px;
+  margin-top:1.35rem;
+  color:#93a8bb;
+  line-height:1.86;
+  font-size:.9rem
+}
+
+.connect {
+  display:flex;
+  gap:.8rem;
+  align-items:center;
+  margin-top:1.9rem
+}
+
+.connect small {
+  font-size:.58rem;
+  color:#667d91;
+  margin-right:.35rem
+}
+
+.social-img {
+  width:38px;
+  height:38px;
+  border-radius:9px;
+  display:block;
+  transition:.2s;
+  opacity:.88
+}
+
+.social-img:hover {
+  transform:translateY(-3px);
+  opacity:1
+}
+
+.hero-logo-wrap {
+  min-height:440px;
+  display:grid;
+  place-items:center;
+  position:relative
+}
+
+.hero-logo-wrap:before {
+  content:"";
+  position:absolute;
+  width:410px;
+  height:410px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(64,113,255,.15),transparent 68%);
+  filter:blur(8px)
+}
+
+.hero-logo {
+  position:relative;
+  width:min(330px,72%);
+  filter:drop-shadow(0 20px 45px rgba(55,80,255,.2))
+}
+
+.hero-logo img {
+  width:100%;
+  display:block
+}
+
+.hero-caption {
+  position:absolute;
+  bottom:60px;
+  font:400 .57rem var(--mono);
+  letter-spacing:.25em;
+  color:#6b8195
+}
 
 /* TRUE SOLAR SCROLLYTELLING */
-.solar-scene{height:520vh;position:relative}
-.solar-sticky{position:sticky;top:0;height:100vh;overflow:hidden}
+.solar-scene {
+  height:520vh;
+  position:relative
+}
+
+.solar-sticky {
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow:hidden
+}
 
 /* TEXT STAYS ABOVE THE SOLAR SYSTEM */
-.solar-copy{
+.solar-copy {
   position:absolute;
   left:50%;
   top:7vh;
@@ -61,39 +420,47 @@ a{color:inherit}button{font:inherit}
   text-align:center;
   will-change:opacity,transform;
 }
-.solar-copy .eyebrow{
+
+.solar-copy .eyebrow {
   font:400 .62rem var(--mono);
   letter-spacing:.29em;
   color:var(--cyan)
 }
-.solar-copy h2{
+
+.solar-copy h2 {
   font:600 clamp(2.5rem,4.1vw,4.35rem)/1.02 var(--sans);
   letter-spacing:-.03em;
   margin:.75rem 0 .9rem
 }
-.solar-copy p{
+
+.solar-copy p {
   max-width:650px;
   margin:0 auto;
   color:#93a8bb;
   line-height:1.75;
   font-size:.89rem
 }
-.solar-state{
+
+.solar-state {
   margin-top:1.15rem;
   font:400 .59rem var(--mono);
   letter-spacing:.17em;
   color:#72889c
 }
-.solar-state strong{color:white}
+
+.solar-state strong {
+  color:white
+}
 
 /* SOLAR SYSTEM IS ALWAYS BOTTOM-CENTER DURING THE ROTATION PHASE */
-.solar-viewport{
+.solar-viewport {
   position:absolute;
   inset:0;
   overflow:hidden;
   pointer-events:none;
 }
-.system{
+
+.system {
   position:absolute;
   left:50%;
   top:100%;
@@ -105,291 +472,1501 @@ a{color:inherit}button{font:inherit}
   will-change:top,transform;
   pointer-events:auto;
 }
-.sun{width:136px;height:136px;border-radius:50%;display:grid;place-items:center;z-index:9;background:radial-gradient(circle at 36% 30%,rgba(39,70,130,.99),rgba(5,12,25,.98));border:1px solid rgba(130,170,255,.27);box-shadow:0 0 90px rgba(93,79,255,.18),0 0 150px rgba(20,215,255,.06)}.sun img{width:90%;display:block}
-.orbit{position:absolute;border:1px solid rgba(110,165,235,.17);border-radius:50%}.orbit.o1{width:300px;height:300px}.orbit.o2{width:455px;height:455px}.orbit.o3{width:610px;height:610px}
-.orbit:before{content:"";position:absolute;left:-4px;top:50%;width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan)}
-.planet{position:absolute;z-index:12;width:104px;text-align:center;color:#92a8bb;border:0;background:none;padding:0;cursor:pointer;transition:.22s}.planet:hover,.planet.active{color:white}.planet:hover img,.planet.active img{transform:scale(1.07)}
-.planet img{width:62px;height:62px;display:block;margin:0 auto 7px;filter:drop-shadow(0 12px 24px rgba(0,0,0,.3));transition:transform .22s,filter .22s}.planet:hover img,.planet.active img{filter:drop-shadow(0 0 28px rgba(20,215,255,.22))}
-.planet small{font-size:.60rem}
-.p1{left:273px;top:5px}.p2{right:72px;top:80px}.p3{right:0;top:272px}.p4{right:72px;bottom:76px}.p5{left:273px;bottom:2px}.p6{left:70px;bottom:80px}.p7{left:0;top:273px}.p8{left:70px;top:80px}.p9{left:181px;top:153px}.p10{right:180px;bottom:153px}
 
-.solar-dots{position:absolute;right:3vw;top:50%;transform:translateY(-50%);z-index:31;display:grid;gap:.45rem}.solar-dots i{width:5px;height:20px;border-radius:5px;background:rgba(255,255,255,.1);transition:.2s}.solar-dots i.on{background:var(--cyan);box-shadow:0 0 12px rgba(20,215,255,.45)}
+.sun {
+  width:136px;
+  height:136px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  z-index:9;
+  background:radial-gradient(circle at 36% 30%,rgba(39,70,130,.99),rgba(5,12,25,.98));
+  border:1px solid rgba(130,170,255,.27);
+  box-shadow:0 0 90px rgba(93,79,255,.18),0 0 150px rgba(20,215,255,.06)
+}
+
+.sun img {
+  width:90%;
+  display:block
+}
+
+.orbit {
+  position:absolute;
+  border:1px solid rgba(110,165,235,.17);
+  border-radius:50%
+}
+
+.orbit.o1 {
+  width:300px;
+  height:300px
+}
+
+.orbit.o2 {
+  width:455px;
+  height:455px
+}
+
+.orbit.o3 {
+  width:610px;
+  height:610px
+}
+
+.orbit:before {
+  content:"";
+  position:absolute;
+  left:-4px;
+  top:50%;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 18px var(--cyan)
+}
+
+.planet {
+  position:absolute;
+  z-index:12;
+  width:104px;
+  text-align:center;
+  color:#92a8bb;
+  border:0;
+  background:none;
+  padding:0;
+  cursor:pointer;
+  transition:.22s
+}
+
+.planet:hover,.planet.active {
+  color:white
+}
+
+.planet:hover img,.planet.active img {
+  transform:scale(1.07)
+}
+
+.planet img {
+  width:62px;
+  height:62px;
+  display:block;
+  margin:0 auto 7px;
+  filter:drop-shadow(0 12px 24px rgba(0,0,0,.3));
+  transition:transform .22s,filter .22s
+}
+
+.planet:hover img,.planet.active img {
+  filter:drop-shadow(0 0 28px rgba(20,215,255,.22))
+}
+
+.planet small {
+  font-size:.60rem
+}
+
+.p1 {
+  left:273px;
+  top:5px
+}
+
+.p2 {
+  right:72px;
+  top:80px
+}
+
+.p3 {
+  right:0;
+  top:272px
+}
+
+.p4 {
+  right:72px;
+  bottom:76px
+}
+
+.p5 {
+  left:273px;
+  bottom:2px
+}
+
+.p6 {
+  left:70px;
+  bottom:80px
+}
+
+.p7 {
+  left:0;
+  top:273px
+}
+
+.p8 {
+  left:70px;
+  top:80px
+}
+
+.p9 {
+  left:181px;
+  top:153px
+}
+
+.p10 {
+  right:180px;
+  bottom:153px
+}
+
+.solar-dots {
+  position:absolute;
+  right:3vw;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:31;
+  display:grid;
+  gap:.45rem
+}
+
+.solar-dots i {
+  width:5px;
+  height:20px;
+  border-radius:5px;
+  background:rgba(255,255,255,.1);
+  transition:.2s
+}
+
+.solar-dots i.on {
+  background:var(--cyan);
+  box-shadow:0 0 12px rgba(20,215,255,.45)
+}
 
 /* modal */
-.modal{position:fixed;inset:0;z-index:500;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(1,5,13,.72);backdrop-filter:blur(14px)}.modal.open{display:flex}
-.modal-card{width:min(620px,100%);border-radius:18px;padding:2rem;background:linear-gradient(155deg,rgba(13,28,54,.98),rgba(6,14,28,.98));border:1px solid rgba(115,175,240,.2);box-shadow:0 28px 90px rgba(0,0,0,.45);position:relative}
-.modal-close{position:absolute;right:16px;top:14px;border:0;background:rgba(255,255,255,.05);color:#a9bdcf;width:34px;height:34px;border-radius:50%;cursor:pointer}.modal-kicker{font:400 .59rem var(--mono);letter-spacing:.21em;color:var(--cyan)}.modal-card h3{font:600 2rem var(--sans);margin:.55rem 0 1rem}.modal-card p{color:#9fb1c2;font-size:.88rem;line-height:1.8}.modal-tags{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.2rem}.modal-tags span{font:400 .57rem var(--mono);padding:.35rem .55rem;border-radius:6px;background:rgba(63,123,255,.1);border:1px solid rgba(100,160,240,.13);color:#a9c8ef}
+.modal {
+  position:fixed;
+  inset:0;
+  z-index:500;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:rgba(1,5,13,.72);
+  backdrop-filter:blur(14px)
+}
+
+.modal.open {
+  display:flex
+}
+
+.modal-card {
+  width:min(620px,100%);
+  border-radius:18px;
+  padding:2rem;
+  background:linear-gradient(155deg,rgba(13,28,54,.98),rgba(6,14,28,.98));
+  border:1px solid rgba(115,175,240,.2);
+  box-shadow:0 28px 90px rgba(0,0,0,.45);
+  position:relative
+}
+
+.modal-close {
+  position:absolute;
+  right:16px;
+  top:14px;
+  border:0;
+  background:rgba(255,255,255,.05);
+  color:#a9bdcf;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  cursor:pointer
+}
+
+.modal-kicker {
+  font:400 .59rem var(--mono);
+  letter-spacing:.21em;
+  color:var(--cyan)
+}
+
+.modal-card h3 {
+  font:600 2rem var(--sans);
+  margin:.55rem 0 1rem
+}
+
+.modal-card p {
+  color:#9fb1c2;
+  font-size:.88rem;
+  line-height:1.8
+}
+
+.modal-tags {
+  display:flex;
+  flex-wrap:wrap;
+  gap:.55rem;
+  margin-top:1.2rem
+}
+
+.modal-tags span {
+  font:400 .57rem var(--mono);
+  padding:.35rem .55rem;
+  border-radius:6px;
+  background:rgba(63,123,255,.1);
+  border:1px solid rgba(100,160,240,.13);
+  color:#a9c8ef
+}
 
 /* platforms */
-.ecosystem{padding:5.6rem 0 6.7rem}.platform-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.95rem}
-.platform-card{min-height:145px;padding:1.2rem .75rem;border-radius:14px;text-align:center;background:linear-gradient(180deg,rgba(12,25,48,.70),rgba(8,18,35,.56));border:1px solid rgba(120,170,230,.13);transition:.22s}.platform-card:hover{transform:translateY(-5px);border-color:rgba(20,215,255,.37)}
-.platform-card img{width:48px;height:48px;display:block;margin:0 auto .65rem}.platform-card b{font-size:.73rem;font-weight:600}.platform-card span{display:block;font-size:.59rem;color:#778c9f;margin-top:.32rem}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.95rem;margin-top:1.7rem}.stat{min-height:120px;padding:1.35rem;border-radius:14px;border:1px solid rgba(120,165,225,.13);background:linear-gradient(135deg,rgba(23,31,67,.43),rgba(7,29,42,.30));display:flex;align-items:center}.stat strong{display:block;font:600 1.72rem var(--sans);color:#7c78ff}.stat:last-child strong{color:var(--green)}.stat span{font-size:.62rem;color:#9aafc0;line-height:1.45}
+.ecosystem {
+  padding:5.6rem 0 6.7rem
+}
+
+.platform-grid {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:.95rem
+}
+
+.platform-card {
+  min-height:145px;
+  padding:1.2rem .75rem;
+  border-radius:14px;
+  text-align:center;
+  background:linear-gradient(180deg,rgba(12,25,48,.70),rgba(8,18,35,.56));
+  border:1px solid rgba(120,170,230,.13);
+  transition:.22s
+}
+
+.platform-card:hover {
+  transform:translateY(-5px);
+  border-color:rgba(20,215,255,.37)
+}
+
+.platform-card img {
+  width:48px;
+  height:48px;
+  display:block;
+  margin:0 auto .65rem
+}
+
+.platform-card b {
+  font-size:.73rem;
+  font-weight:600
+}
+
+.platform-card span {
+  display:block;
+  font-size:.59rem;
+  color:#778c9f;
+  margin-top:.32rem
+}
+
+.stats {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:.95rem;
+  margin-top:1.7rem
+}
+
+.stat {
+  min-height:120px;
+  padding:1.35rem;
+  border-radius:14px;
+  border:1px solid rgba(120,165,225,.13);
+  background:linear-gradient(135deg,rgba(23,31,67,.43),rgba(7,29,42,.30));
+  display:flex;
+  align-items:center
+}
+
+.stat strong {
+  display:block;
+  font:600 1.72rem var(--sans);
+  color:#7c78ff
+}
+
+.stat:last-child strong {
+  color:var(--green)
+}
+
+.stat span {
+  font-size:.62rem;
+  color:#9aafc0;
+  line-height:1.45
+}
 
 /* skills */
-.skills-section{padding:.8rem 0 6.7rem}.skills{display:grid;grid-template-columns:repeat(4,1fr);gap:.95rem}
-.skill{min-height:60px;padding:.95rem 1.05rem;border-radius:12px;background:rgba(10,20,38,.56);border:1px solid rgba(120,170,230,.12);display:flex;align-items:center;gap:.68rem;font-size:.69rem;color:#c4d0db;transition:.2s}.skill:hover{transform:translateY(-3px);border-color:rgba(20,215,255,.32);color:white}.skill img{width:28px;height:28px;border-radius:8px}
+.skills-section {
+  padding:.8rem 0 6.7rem
+}
+
+.skills {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:.95rem
+}
+
+.skill {
+  min-height:60px;
+  padding:.95rem 1.05rem;
+  border-radius:12px;
+  background:rgba(10,20,38,.56);
+  border:1px solid rgba(120,170,230,.12);
+  display:flex;
+  align-items:center;
+  gap:.68rem;
+  font-size:.69rem;
+  color:#c4d0db;
+  transition:.2s
+}
+
+.skill:hover {
+  transform:translateY(-3px);
+  border-color:rgba(20,215,255,.32);
+  color:white
+}
+
+.skill img {
+  width:28px;
+  height:28px;
+  border-radius:8px
+}
 
 /* COMPACT IAM JOURNEY — same style as reference */
-.journey-section{padding:5.8rem 0 5.7rem}
-.journey{display:grid;grid-template-columns:repeat(3,1fr) .92fr;gap:.95rem;position:relative;margin-top:2rem}
-.journey:after{content:"";position:absolute;left:0;right:0;bottom:-18px;height:2px;background:linear-gradient(90deg,var(--green),var(--blue),var(--violet),rgba(147,102,255,.08))}
-.job,.quote{min-height:195px;padding:1.25rem;border-radius:13px;background:rgba(10,20,38,.64);border:1px solid rgba(120,170,230,.13);position:relative}
-.job:after{content:"";position:absolute;left:50%;bottom:-24px;width:10px;height:10px;border-radius:50%;transform:translateX(-50%);background:var(--bg);border:2px solid var(--blue);z-index:4}.job:nth-child(1):after{border-color:var(--green)}.job:nth-child(3):after{border-color:var(--violet)}
-.job-head{display:flex;gap:.72rem;align-items:center}.company-img{width:36px;height:36px;border-radius:9px}.job h3{font-size:.82rem;margin:0;font-weight:600}.meta{margin-top:.22rem;color:#8c9fb2;font-size:.60rem;line-height:1.45}.job p{font-size:.65rem;line-height:1.6;color:#a0b2c2;margin:.85rem 0 0}
-.quote{display:flex;flex-direction:column;justify-content:center;padding:1.35rem}.quote b{font:600 2.1rem var(--sans);color:#4b76ff;line-height:.55}.quote p{font-size:.74rem;line-height:1.65;color:#b8c5d1;margin:.8rem 0 0}.quote em{font-style:normal;color:#73a1ff}
+.journey-section {
+  padding:5.8rem 0 5.7rem
+}
+
+.journey {
+  display:grid;
+  grid-template-columns:repeat(3,1fr) .92fr;
+  gap:.95rem;
+  position:relative;
+  margin-top:2rem
+}
+
+.journey:after {
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-18px;
+  height:2px;
+  background:linear-gradient(90deg,var(--green),var(--blue),var(--violet),rgba(147,102,255,.08))
+}
+
+.job,.quote {
+  min-height:195px;
+  padding:1.25rem;
+  border-radius:13px;
+  background:rgba(10,20,38,.64);
+  border:1px solid rgba(120,170,230,.13);
+  position:relative
+}
+
+.job:after {
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-24px;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  transform:translateX(-50%);
+  background:var(--bg);
+  border:2px solid var(--blue);
+  z-index:4
+}
+
+.job:nth-child(1):after {
+  border-color:var(--green)
+}
+
+.job:nth-child(3):after {
+  border-color:var(--violet)
+}
+
+.job-head {
+  display:flex;
+  gap:.72rem;
+  align-items:center
+}
+
+.company-img {
+  width:36px;
+  height:36px;
+  border-radius:9px
+}
+
+.job h3 {
+  font-size:.82rem;
+  margin:0;
+  font-weight:600
+}
+
+.meta {
+  margin-top:.22rem;
+  color:#8c9fb2;
+  font-size:.60rem;
+  line-height:1.45
+}
+
+.job p {
+  font-size:.65rem;
+  line-height:1.6;
+  color:#a0b2c2;
+  margin:.85rem 0 0
+}
+
+.quote {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:1.35rem
+}
+
+.quote b {
+  font:600 2.1rem var(--sans);
+  color:#4b76ff;
+  line-height:.55
+}
+
+.quote p {
+  font-size:.74rem;
+  line-height:1.65;
+  color:#b8c5d1;
+  margin:.8rem 0 0
+}
+
+.quote em {
+  font-style:normal;
+  color:#73a1ff
+}
 
 /* hobby */
-.hobby{padding:6.2rem 0}.hobby-note{max-width:700px;margin:-.1rem auto 1.9rem;text-align:center;color:#8398ab;font-size:.77rem;line-height:1.72}.projects{display:grid;grid-template-columns:repeat(4,1fr);gap:.95rem}.project{min-height:174px;padding:1.2rem;border-radius:13px;background:rgba(10,20,38,.52);border:1px solid rgba(120,170,230,.12);text-decoration:none;position:relative;transition:.22s}.project:hover{transform:translateY(-4px);border-color:rgba(147,102,255,.34)}.project h3{font-size:.80rem;margin:.2rem 0 .6rem;font-weight:600}.project p{font-size:.65rem;line-height:1.6;color:#899fb0}.tag{display:inline-block;margin-top:.9rem;padding:.26rem .46rem;border-radius:5px;background:rgba(63,123,255,.11);color:#79a8ff;font-size:.52rem}.arrow{position:absolute;right:1rem;bottom:.9rem;color:#72879a}
+.hobby {
+  padding:6.2rem 0
+}
+
+.hobby-note {
+  max-width:700px;
+  margin:-.1rem auto 1.9rem;
+  text-align:center;
+  color:#8398ab;
+  font-size:.77rem;
+  line-height:1.72
+}
+
+.projects {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:.95rem
+}
+
+.project {
+  min-height:174px;
+  padding:1.2rem;
+  border-radius:13px;
+  background:rgba(10,20,38,.52);
+  border:1px solid rgba(120,170,230,.12);
+  text-decoration:none;
+  position:relative;
+  transition:.22s
+}
+
+.project:hover {
+  transform:translateY(-4px);
+  border-color:rgba(147,102,255,.34)
+}
+
+.project h3 {
+  font-size:.80rem;
+  margin:.2rem 0 .6rem;
+  font-weight:600
+}
+
+.project p {
+  font-size:.65rem;
+  line-height:1.6;
+  color:#899fb0
+}
+
+.tag {
+  display:inline-block;
+  margin-top:.9rem;
+  padding:.26rem .46rem;
+  border-radius:5px;
+  background:rgba(63,123,255,.11);
+  color:#79a8ff;
+  font-size:.52rem
+}
+
+.arrow {
+  position:absolute;
+  right:1rem;
+  bottom:.9rem;
+  color:#72879a
+}
 
 /* contact */
-.contact{padding:0 0 2rem}.contact-panel{padding:2.05rem 2.35rem;border-radius:16px;display:grid;grid-template-columns:1.15fr 1fr auto;gap:2rem;align-items:center;background:radial-gradient(circle at 85% 42%,rgba(147,102,255,.23),transparent 30%),linear-gradient(100deg,rgba(5,34,69,.95),rgba(42,51,166,.92),rgba(77,45,176,.9));border:1px solid rgba(110,160,255,.23)}
-.contact-panel h2{margin:0;font:600 1.72rem/1.16 var(--sans)}.contact-panel p{margin:.55rem 0 0;color:#bcc9d8;font-size:.72rem}.contact-info{display:grid;gap:.58rem;color:#d5e0ea;font-size:.68rem}.contact-social{display:flex;gap:.7rem}
-footer{text-align:center;padding:0 0 1.6rem;color:#55697c;font-size:.56rem}
+.contact {
+  padding:0 0 2rem
+}
 
-@media(max-width:1050px){
- .hero-grid{grid-template-columns:1fr;gap:2.4rem;text-align:center}.hero-copy{margin-left:auto;margin-right:auto}.connect{justify-content:center}
- .solar-copy{left:5vw;width:42vw}.platform-grid{grid-template-columns:repeat(2,1fr)}.skills{grid-template-columns:repeat(2,1fr)}.journey{grid-template-columns:repeat(3,1fr)}.quote{grid-column:1/-1;min-height:120px}.projects{grid-template-columns:repeat(2,1fr)}
+.contact-panel {
+  padding:2.05rem 2.35rem;
+  border-radius:16px;
+  display:grid;
+  grid-template-columns:1.15fr 1fr auto;
+  gap:2rem;
+  align-items:center;
+  background:radial-gradient(circle at 85% 42%,rgba(147,102,255,.23),transparent 30%),linear-gradient(100deg,rgba(5,34,69,.95),rgba(42,51,166,.92),rgba(77,45,176,.9));
+  border:1px solid rgba(110,160,255,.23)
 }
-@media(max-width:820px){
- .nav{display:none}.solar-scene{height:auto}.solar-sticky{position:relative;height:820px}.solar-copy{position:relative;left:auto;top:auto;transform:none!important;width:auto;padding:4rem 24px 0;text-align:center;opacity:1!important}.solar-viewport{top:210px}.system{top:58%!important;transform:translate(-50%,-50%) scale(.72)!important}.solar-dots{display:none}
- .stats{grid-template-columns:repeat(2,1fr)}.journey{grid-template-columns:1fr}.journey:after,.job:after{display:none}.contact-panel{grid-template-columns:1fr;text-align:center}.contact-social{justify-content:center}
+
+.contact-panel h2 {
+  margin:0;
+  font:600 1.72rem/1.16 var(--sans)
 }
-@media(max-width:560px){
- .wrap{width:min(100% - 28px,1180px)}.hero h1{font-size:3.78rem}.platform-grid,.skills,.projects,.stats{grid-template-columns:1fr}.system{transform:translate(-50%,-50%) scale(.58)!important}
+
+.contact-panel p {
+  margin:.55rem 0 0;
+  color:#bcc9d8;
+  font-size:.72rem
 }
-@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+.contact-info {
+  display:grid;
+  gap:.58rem;
+  color:#d5e0ea;
+  font-size:.68rem
+}
+
+.contact-social {
+  display:flex;
+  gap:.7rem
+}
+
+footer {
+  text-align:center;
+  padding:0 0 1.6rem;
+  color:#55697c;
+  font-size:.56rem
+}
+
+@media(max-width:1050px) {
+  .hero-grid {
+    grid-template-columns:1fr;
+    gap:2.4rem;
+    text-align:center
+  }
+  .hero-copy {
+    margin-left:auto;
+    margin-right:auto
+  }
+  .connect {
+    justify-content:center
+  }
+  .solar-copy {
+    left:5vw;
+    width:42vw
+  }
+  .platform-grid {
+    grid-template-columns:repeat(2,1fr)
+  }
+  .skills {
+    grid-template-columns:repeat(2,1fr)
+  }
+  .journey {
+    grid-template-columns:repeat(3,1fr)
+  }
+  .quote {
+    grid-column:1/-1;
+    min-height:120px
+  }
+  .projects {
+    grid-template-columns:repeat(2,1fr)
+  }
+}
+
+@media(max-width:820px) {
+  .nav {
+    display:none
+  }
+  .solar-scene {
+    height:auto
+  }
+  .solar-sticky {
+    position:relative;
+    height:820px
+  }
+  .solar-copy {
+    position:relative;
+    left:auto;
+    top:auto;
+    transform:none!important;
+    width:auto;
+    padding:4rem 24px 0;
+    text-align:center;
+    opacity:1!important
+  }
+  .solar-viewport {
+    top:210px
+  }
+  .system {
+    top:58%!important;
+    transform:translate(-50%,-50%) scale(.72)!important
+  }
+  .solar-dots {
+    display:none
+  }
+  .stats {
+    grid-template-columns:repeat(2,1fr)
+  }
+  .journey {
+    grid-template-columns:1fr
+  }
+  .journey:after,.job:after {
+    display:none
+  }
+  .contact-panel {
+    grid-template-columns:1fr;
+    text-align:center
+  }
+  .contact-social {
+    justify-content:center
+  }
+}
+
+@media(max-width:560px) {
+  .wrap {
+    width:min(100% - 28px,1180px)
+  }
+  .hero h1 {
+    font-size:3.78rem
+  }
+  .platform-grid,.skills,.projects,.stats {
+    grid-template-columns:1fr
+  }
+  .system {
+    transform:translate(-50%,-50%) scale(.58)!important
+  }
+}
+
+@media(max-width:560px) {
+  .intro-sticky {
+    background:       radial-gradient(circle at 20% 30%, rgba(35,153,255,.14), transparent 26%),       radial-gradient(circle at 80% 76%, rgba(186,74,255,.18), transparent 28%),       linear-gradient(rgba(2,6,16,.18),rgba(2,6,16,.18)),       url("assets/backgrounds/space-bg.png") center center/cover no-repeat,       #020610 !important;
+  }
+  .intro-sticky::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:       radial-gradient(circle at 18% 74%, rgba(0,170,255,.14), transparent 18%),       radial-gradient(circle at 83% 24%, rgba(152,83,255,.14), transparent 18%);
+    z-index:0;
+    pointer-events:none;
+  }
+  .intro-sticky::after {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(       180deg,       rgba(2,6,16,.08) 0%,       rgba(2,6,16,.03) 50%,       rgba(2,6,16,.18) 100%     );
+    z-index:1;
+    pointer-events:none;
+  }
+  .intro-fade {
+    z-index:2
+  }
+  .mobile-intro {
+    display:flex;
+    position:absolute;
+    inset:0;
+    z-index:3;
+    padding:11vh 22px 110px;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+  }
+  .scroll-center {
+    z-index:4;
+    bottom:20px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  * {
+    scroll-behavior:auto!important;
+    animation:none!important;
+    transition:none!important
+  }
+  .reveal {
+    opacity:1;
+    transform:none
+  }
+}
 </style>
-</head>
-<body>
-<div class="progress" id="progress"></div>
-<canvas id="stars"></canvas>
-
-<nav class="nav" id="nav">
- <a href="#profile">Profile</a><a href="#solar">Platforms</a><a href="#skills">Skills</a><a href="#journey">Journey</a><a href="#hobby">Hobby</a><a href="#contact">Contact</a>
-</nav>
-
-<section class="intro-scene" id="home">
- <div class="intro-sticky"><div class="intro-fade" id="introFade"></div><div class="scroll-center">SCROLL<div class="mouse"></div></div></div>
-</section>
-
-<section class="hero-scene hero" id="profile">
- <div class="hero-sticky">
-  <div class="wrap hero-grid">
-   <div class="reveal">
-    <div class="hello">Hi, I'm</div>
-    <h1>Ajaya <span class="last">Ghimire</span></h1>
-    <div class="role">IAM Engineer &amp; Identity Security Specialist</div>
-    <p class="hero-copy">I design, build and secure identity ecosystems across governance, lifecycle automation, privileged access, authentication, cloud identity and enterprise integrations.</p>
-    <div class="connect"><small>LET'S CONNECT</small><a href="https://github.com/ajaya-ghimire" target="_blank"><img class="social-img" src="assets/social/github.png"></a><a href="https://www.linkedin.com/in/ghimire-ajaya24" target="_blank"><img class="social-img" src="assets/social/linkedin.png"></a><a href="mailto:ajayaghimire812@gmail.com"><img class="social-img" src="assets/social/mail.png"></a></div>
+ </head>
+ <body>
+  <div class="progress" id="progress">
+  </div>
+  <canvas id="stars">
+  </canvas>
+  <nav class="nav" id="nav">
+   <a href="#profile">
+    Profile
+   </a>
+   <a href="#solar">
+    Platforms
+   </a>
+   <a href="#skills">
+    Skills
+   </a>
+   <a href="#journey">
+    Journey
+   </a>
+   <a href="#hobby">
+    Hobby
+   </a>
+   <a href="#contact">
+    Contact
+   </a>
+  </nav>
+  <section class="intro-scene" id="home">
+   <div class="intro-sticky">
+    <div class="intro-fade" id="introFade">
+    </div>
+    <div aria-hidden="true" class="mobile-intro">
+     <img alt="AG logo" class="mobile-intro-logo" src="assets/logo/ag-logo.png"/>
+     <div class="mobile-intro-brand">
+      AG::
+      <span>
+       IDENTITY
+      </span>
+     </div>
+     <div class="mobile-intro-loader">
+      <span>
+      </span>
+     </div>
+     <div class="mobile-intro-init">
+      INITIALIZING IDENTITY SPACE
+     </div>
+    </div>
+    <div class="scroll-center">
+     SCROLL
+     <div class="mouse">
+     </div>
+    </div>
    </div>
-   <div class="hero-logo-wrap reveal"><div class="hero-logo"><img src="assets/logo/ag-logo.png" alt="AG"></div><div class="hero-caption">SCROLL INTO THE IDENTITY ECOSYSTEM</div></div>
-  </div>
- </div>
-</section>
-
-<section class="solar-scene" id="solar">
- <div class="solar-sticky">
-  <div class="solar-copy">
-   <div class="eyebrow">IDENTITY SOLAR SYSTEM</div>
-   <h2>Different systems.<br>One identity layer.</h2>
-   <p>For most of this scene, the center of the system stays exactly on the bottom edge of your screen — so you only see the upper hemisphere. Scroll to rotate new platforms through view. At the end, the full system rises into the screen.</p>
-   <div class="solar-state">ACTIVE PLANET · <strong id="activePlanet">SAILPOINT</strong></div>
-  </div>
-  <div class="solar-viewport">
-   <div class="system" id="system">
-    <div class="orbit o3"></div><div class="orbit o2"></div><div class="orbit o1"></div>
-    <div class="sun"><img src="assets/logo/ag-logo.png" alt=""></div>
-    <button class="planet p1" data-key="sailpoint"><img src="assets/platforms/sailpoint.png"><small>SailPoint</small></button>
-    <button class="planet p2" data-key="okta"><img src="assets/platforms/okta.png"><small>Okta</small></button>
-    <button class="planet p3" data-key="entra"><img src="assets/platforms/entra.png"><small>Entra ID</small></button>
-    <button class="planet p4" data-key="saviynt"><img src="assets/platforms/saviynt.png"><small>Saviynt</small></button>
-    <button class="planet p5" data-key="cyberark"><img src="assets/platforms/cyberark.png"><small>CyberArk</small></button>
-    <button class="planet p6" data-key="aws"><img src="assets/platforms/aws.png"><small>AWS IAM</small></button>
-    <button class="planet p7" data-key="ad"><img src="assets/platforms/ad.png"><small>Active Directory</small></button>
-    <button class="planet p8" data-key="ping"><img src="assets/platforms/ping.png"><small>Ping Identity</small></button>
-    <button class="planet p9" data-key="servicenow"><img src="assets/platforms/servicenow.png"><small>ServiceNow</small></button>
-    <button class="planet p10" data-key="gcp"><img src="assets/platforms/gcp.png"><small>Google Cloud</small></button>
+  </section>
+  <section class="hero-scene hero" id="profile">
+   <div class="hero-sticky">
+    <div class="wrap hero-grid">
+     <div class="reveal">
+      <div class="hello">
+       Hi, I'm
+      </div>
+      <h1>
+       Ajaya
+       <span class="last">
+        Ghimire
+       </span>
+      </h1>
+      <div class="role">
+       IAM Engineer &amp; Identity Security Specialist
+      </div>
+      <p class="hero-copy">
+       I design, build and secure identity ecosystems across governance, lifecycle automation, privileged access, authentication, cloud identity and enterprise integrations.
+      </p>
+      <div class="connect">
+       <small>
+        LET'S CONNECT
+       </small>
+       <a href="https://github.com/ajaya-ghimire" target="_blank">
+        <img class="social-img" src="assets/social/github.png"/>
+       </a>
+       <a href="https://www.linkedin.com/in/ghimire-ajaya24" target="_blank">
+        <img class="social-img" src="assets/social/linkedin.png"/>
+       </a>
+       <a href="mailto:ajayaghimire812@gmail.com">
+        <img class="social-img" src="assets/social/mail.png"/>
+       </a>
+      </div>
+     </div>
+     <div class="hero-logo-wrap reveal">
+      <div class="hero-logo">
+       <img alt="AG" src="assets/logo/ag-logo.png"/>
+      </div>
+      <div class="hero-caption">
+       SCROLL INTO THE IDENTITY ECOSYSTEM
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="solar-scene" id="solar">
+   <div class="solar-sticky">
+    <div class="solar-copy">
+     <div class="eyebrow">
+      IDENTITY SOLAR SYSTEM
+     </div>
+     <h2>
+      Different systems.
+      <br/>
+      One identity layer.
+     </h2>
+     <p>
+      For most of this scene, the center of the system stays exactly on the bottom edge of your screen &mdash; so you only see the upper hemisphere. Scroll to rotate new platforms through view. At the end, the full system rises into the screen.
+     </p>
+     <div class="solar-state">
+      ACTIVE PLANET &middot;
+      <strong id="activePlanet">
+       SAILPOINT
+      </strong>
+     </div>
+    </div>
+    <div class="solar-viewport">
+     <div class="system" id="system">
+      <div class="orbit o3">
+      </div>
+      <div class="orbit o2">
+      </div>
+      <div class="orbit o1">
+      </div>
+      <div class="sun">
+       <img alt="" src="assets/logo/ag-logo.png"/>
+      </div>
+      <button class="planet p1" data-key="sailpoint">
+       <img src="assets/platforms/sailpoint.png"/>
+       <small>
+        SailPoint
+       </small>
+      </button>
+      <button class="planet p2" data-key="okta">
+       <img src="assets/platforms/okta.png"/>
+       <small>
+        Okta
+       </small>
+      </button>
+      <button class="planet p3" data-key="entra">
+       <img src="assets/platforms/entra.png"/>
+       <small>
+        Entra ID
+       </small>
+      </button>
+      <button class="planet p4" data-key="saviynt">
+       <img src="assets/platforms/saviynt.png"/>
+       <small>
+        Saviynt
+       </small>
+      </button>
+      <button class="planet p5" data-key="cyberark">
+       <img src="assets/platforms/cyberark.png"/>
+       <small>
+        CyberArk
+       </small>
+      </button>
+      <button class="planet p6" data-key="aws">
+       <img src="assets/platforms/aws.png"/>
+       <small>
+        AWS IAM
+       </small>
+      </button>
+      <button class="planet p7" data-key="ad">
+       <img src="assets/platforms/ad.png"/>
+       <small>
+        Active Directory
+       </small>
+      </button>
+      <button class="planet p8" data-key="ping">
+       <img src="assets/platforms/ping.png"/>
+       <small>
+        Ping Identity
+       </small>
+      </button>
+      <button class="planet p9" data-key="servicenow">
+       <img src="assets/platforms/servicenow.png"/>
+       <small>
+        ServiceNow
+       </small>
+      </button>
+      <button class="planet p10" data-key="gcp">
+       <img src="assets/platforms/gcp.png"/>
+       <small>
+        Google Cloud
+       </small>
+      </button>
+     </div>
+    </div>
+    <div class="solar-dots" id="solarDots">
+     <i>
+     </i>
+     <i>
+     </i>
+     <i>
+     </i>
+     <i>
+     </i>
+     <i>
+     </i>
+    </div>
+   </div>
+  </section>
+  <div class="modal" id="modal">
+   <div class="modal-card">
+    <button class="modal-close" id="modalClose">
+     &times;
+    </button>
+    <div class="modal-kicker">
+     PLATFORM EXPERIENCE
+    </div>
+    <h3 id="modalTitle">
+    </h3>
+    <p id="modalBody">
+    </p>
+    <div class="modal-tags" id="modalTags">
+    </div>
    </div>
   </div>
-  <div class="solar-dots" id="solarDots"><i></i><i></i><i></i><i></i><i></i></div>
-</div>
-</section>
-
-<div class="modal" id="modal">
- <div class="modal-card"><button class="modal-close" id="modalClose">×</button><div class="modal-kicker">PLATFORM EXPERIENCE</div><h3 id="modalTitle"></h3><p id="modalBody"></p><div class="modal-tags" id="modalTags"></div></div>
-</div>
-
-<section class="ecosystem">
- <div class="wrap">
-  <div class="section-title reveal">Platforms I Work With</div>
-  <div class="platform-grid">
-   <div class="platform-card reveal"><img src="assets/platforms/sailpoint.png"><b>SailPoint</b><span>IIQ / ISC / IdentityNow</span></div>
-   <div class="platform-card reveal"><img src="assets/platforms/okta.png"><b>Okta</b><span>WIC / UD / Workflows</span></div>
-   <div class="platform-card reveal"><img src="assets/platforms/entra.png"><b>Microsoft Entra</b><span>Cloud Identity / Conditional Access</span></div>
-   <div class="platform-card reveal"><img src="assets/platforms/saviynt.png"><b>Saviynt</b><span>EIC / IGA</span></div>
-   <div class="platform-card reveal"><img src="assets/platforms/cyberark.png"><b>CyberArk</b><span>PAM / Vault / PSM</span></div>
-   <div class="platform-card reveal"><img src="assets/platforms/aws.png"><b>AWS IAM</b><span>Cloud Identity / Workloads</span></div>
-   <div class="platform-card reveal"><img src="assets/platforms/gcp.png"><b>Google Cloud</b><span>Cloud IAM</span></div>
-   <div class="platform-card reveal"><img src="assets/platforms/ping.png"><b>Ping Identity</b><span>Federation</span></div>
-   <div class="platform-card reveal"><img src="assets/platforms/ad.png"><b>Active Directory</b><span>On-Prem Identity</span></div>
-   <div class="platform-card reveal"><img src="assets/platforms/servicenow.png"><b>ServiceNow</b><span>ITSM / Integration</span></div>
-  </div>
-  <div class="stats">
-   <div class="stat reveal"><div><strong data-count="6" data-suffix="+">0</strong><span>Years IAM Experience</span></div></div>
-   <div class="stat reveal"><div><strong data-count="3">0</strong><span>Enterprise Identity Environments</span></div></div>
-   <div class="stat reveal"><div><strong data-count="2">0</strong><span>IIQ / ISC Generations</span></div></div>
-   <div class="stat reveal"><div><strong data-count="100" data-suffix="%">0</strong><span>Identity &amp; Security Focus</span></div></div>
-  </div>
- </div>
-</section>
-
-<section class="skills-section" id="skills">
- <div class="wrap">
-  <div class="section-title reveal">Core Skills &amp; Expertise</div>
-  <div class="skills">
-   <div class="skill reveal">Identity Governance</div>
-   <div class="skill reveal">Access Management</div>
-   <div class="skill reveal">JML / NELM Lifecycle</div>
-   <div class="skill reveal">RBAC / ABAC / PBAC</div>
-   <div class="skill reveal">Access Certifications</div>
-   <div class="skill reveal">SSO / SAML / OIDC</div>
-   <div class="skill reveal">OAuth 2.0 / MFA / FIDO2</div>
-   <div class="skill reveal">SCIM / REST / SOAP / JDBC</div>
-   <div class="skill reveal">SoD / ITDR / Access Reviews</div>
-   <div class="skill reveal">PAM / JIT / Secrets</div>
-   <div class="skill reveal">Workflows &amp; Automation</div>
-   <div class="skill reveal">BeanShell / Java / PowerShell</div>
-   <div class="skill reveal">AD / Workday / SAP / ServiceNow</div>
-   <div class="skill reveal">NIST / SOX / HIPAA / GDPR</div>
-   <div class="skill reveal">AWS / Azure / Multi-Cloud IAM</div>
-   <div class="skill reveal">NHIM / AI Agent Governance</div>
-  </div>
- </div>
-</section>
-
-<section class="journey-section" id="journey">
- <div class="wrap">
-  <div class="section-title reveal">My IAM Journey</div>
-  <div class="journey">
-   <article class="job reveal"><div class="job-head"><img class="company-img" src="assets/companies/xcel.png"><div><h3>Xcel Energy</h3><div class="meta">Java / SailPoint Developer<br>2020 — 2023</div></div></div><p>IIQ workflows, application onboarding, provisioning automation, Active Directory and PowerShell.</p></article>
-   <article class="job reveal"><div class="job-head"><img class="company-img" src="assets/companies/danaher.png"><div><h3>Danaher</h3><div class="meta">SailPoint IIQ Developer<br>2023 — 2025</div></div></div><p>IIQ modernization, custom rules, certifications, JML, RBAC, Okta, AD and ServiceNow integrations.</p></article>
-   <article class="job reveal"><div class="job-head"><img class="company-img" src="assets/companies/medtronic.png"><div><h3>Medtronic</h3><div class="meta">IAM Engineer<br>2025 — Present</div></div></div><p>ISC onboarding, NHIM governance, workload identities, Zero Trust, ITDR and cloud integrations.</p></article>
-   <aside class="quote reveal"><b>“</b><p>Strong identity security is the foundation of <em>digital trust</em> and resilient access.</p></aside>
-  </div>
- </div>
-</section>
-
-<section class="hobby" id="hobby">
- <div class="wrap">
-  <div class="section-title reveal">What I Build in My Free Time</div>
-  <p class="hobby-note reveal">These are personal experiments and hobby projects I enjoy outside IAM. They’re here because I like building things, not because they represent my professional identity work.</p>
-  <div class="projects">
-   <a class="project reveal" href="https://www.persietech.com/"><h3>PersieTech</h3><p>A personal software and technology experiment.</p><span class="tag">HOBBY PROJECT</span><span class="arrow">↗</span></a>
-   <a class="project reveal" href="ai-maze.html"><h3>AI Maze</h3><p>An interactive browser experiment around pathfinding.</p><span class="tag">FOR FUN</span><span class="arrow">↗</span></a>
-   <a class="project reveal" href="expense-manager.html"><h3>Expense Manager</h3><p>A small utility for organizing personal spending.</p><span class="tag">UTILITY</span><span class="arrow">↗</span></a>
-   <a class="project reveal" href="devanagari-calculator.html"><h3>Devanagari Calculator</h3><p>A calculator interface using Devanagari numerals.</p><span class="tag">CULTURE × CODE</span><span class="arrow">↗</span></a>
-  </div>
- </div>
-</section>
-
-<section class="contact" id="contact">
- <div class="wrap">
-  <div class="contact-panel reveal">
-   <div><h2>Let’s build a secure<br>identity future together.</h2><p>Open to IAM, IGA, identity security and platform engineering opportunities.</p></div>
-   <div class="contact-info"><span>✉ &nbsp; ajayaghimire812@gmail.com</span><span>☎ &nbsp; 214-614-8104</span><span>⌖ &nbsp; Dallas, TX</span></div>
-   <div class="contact-social"><a href="https://github.com/ajaya-ghimire" target="_blank"><img class="social-img" src="assets/social/github.png"></a><a href="https://www.linkedin.com/in/ghimire-ajaya24" target="_blank"><img class="social-img" src="assets/social/linkedin.png"></a><a href="mailto:ajayaghimire812@gmail.com"><img class="social-img" src="assets/social/mail.png"></a></div>
-  </div>
- </div>
-</section>
-<footer>© 2026 Ajaya Ghimire. All rights reserved.</footer>
-
-<script>
-const platformData={
- sailpoint:{title:"SailPoint IIQ / ISC",body:"My strongest IAM platform area. I’ve worked across application onboarding, source and connector configuration, aggregation and correlation, provisioning policies, certification campaigns, custom BeanShell/Java rules, workflows, lifecycle events, access requests and production troubleshooting. My current ISC work also includes non-human identity and autonomous agent governance.",tags:["IIQ 7.x / 8.x","ISC / IDN","JML","Certifications","Rules & Workflows","NHIM"]},
- okta:{title:"Okta",body:"I’ve worked with Okta for authentication, lifecycle management and governance integration, including Workforce Identity Cloud, Universal Directory, Lifecycle Management, Workflows, Adaptive MFA, Identity Engine and SailPoint integrations.",tags:["WIC","Universal Directory","Lifecycle Management","Adaptive MFA","Workflows"]},
- entra:{title:"Microsoft Entra ID",body:"My Entra ID work covers cloud and hybrid identity, Conditional Access, federation, RBAC and integrations with SailPoint and Active Directory.",tags:["Entra ID","Conditional Access","Azure RBAC","Federation","Hybrid Identity"]},
- saviynt:{title:"Saviynt",body:"Saviynt is part of my broader IGA platform experience and certification background, including modern identity governance and AI-era identity security concepts.",tags:["Saviynt EIC","IGA","Identity Security","Governance"]},
- cyberark:{title:"CyberArk",body:"My PAM experience includes CyberArk Vault, CPM, PVWA, PSM, PSMP, PTA, AIM/CCP, EPM and Conjur, plus privileged account discovery, JIT access and secrets governance.",tags:["Vault","CPM","PVWA","PSM","JIT Access","Secrets"]},
- aws:{title:"AWS IAM",body:"My AWS identity work includes IAM governance, workload identities, AWS Organizations, secrets management and federation, including hybrid patterns governed through SailPoint.",tags:["AWS IAM","Organizations","Workload Identity","Secrets Manager","Federation"]},
- gcp:{title:"Google Cloud IAM",body:"Google Cloud fits into my multi-cloud IAM experience around cloud identity governance, RBAC-style access control and consistent access governance across cloud environments.",tags:["GCP IAM","Cloud Governance","Multi-Cloud"]},
- ad:{title:"Active Directory",body:"Active Directory has been a recurring part of my IAM work across application onboarding, provisioning, group governance, Windows Server, GPOs and PowerShell automation.",tags:["AD","Group Governance","GPO","PowerShell","Windows Server"]},
- ping:{title:"Ping Identity",body:"Ping Identity is part of my authentication and federation toolkit, aligned with SAML, OAuth 2.0, OIDC, LDAP and enterprise SSO patterns.",tags:["Ping Identity","Federation","SAML","OAuth 2.0","OIDC"]},
- servicenow:{title:"ServiceNow",body:"I’ve integrated ServiceNow with identity platforms for enterprise onboarding, access request workflows and SailPoint integration through REST and connector-based approaches.",tags:["ServiceNow","ITSM","REST","Workflow Integration","SailPoint"]}
-};
-
+  <section class="ecosystem">
+   <div class="wrap">
+    <div class="section-title reveal">
+     Platforms I Work With
+    </div>
+    <div class="platform-grid">
+     <div class="platform-card reveal">
+      <img src="assets/platforms/sailpoint.png"/>
+      <b>
+       SailPoint
+      </b>
+      <span>
+       IIQ / ISC / IdentityNow
+      </span>
+     </div>
+     <div class="platform-card reveal">
+      <img src="assets/platforms/okta.png"/>
+      <b>
+       Okta
+      </b>
+      <span>
+       WIC / UD / Workflows
+      </span>
+     </div>
+     <div class="platform-card reveal">
+      <img src="assets/platforms/entra.png"/>
+      <b>
+       Microsoft Entra
+      </b>
+      <span>
+       Cloud Identity / Conditional Access
+      </span>
+     </div>
+     <div class="platform-card reveal">
+      <img src="assets/platforms/saviynt.png"/>
+      <b>
+       Saviynt
+      </b>
+      <span>
+       EIC / IGA
+      </span>
+     </div>
+     <div class="platform-card reveal">
+      <img src="assets/platforms/cyberark.png"/>
+      <b>
+       CyberArk
+      </b>
+      <span>
+       PAM / Vault / PSM
+      </span>
+     </div>
+     <div class="platform-card reveal">
+      <img src="assets/platforms/aws.png"/>
+      <b>
+       AWS IAM
+      </b>
+      <span>
+       Cloud Identity / Workloads
+      </span>
+     </div>
+     <div class="platform-card reveal">
+      <img src="assets/platforms/gcp.png"/>
+      <b>
+       Google Cloud
+      </b>
+      <span>
+       Cloud IAM
+      </span>
+     </div>
+     <div class="platform-card reveal">
+      <img src="assets/platforms/ping.png"/>
+      <b>
+       Ping Identity
+      </b>
+      <span>
+       Federation
+      </span>
+     </div>
+     <div class="platform-card reveal">
+      <img src="assets/platforms/ad.png"/>
+      <b>
+       Active Directory
+      </b>
+      <span>
+       On-Prem Identity
+      </span>
+     </div>
+     <div class="platform-card reveal">
+      <img src="assets/platforms/servicenow.png"/>
+      <b>
+       ServiceNow
+      </b>
+      <span>
+       ITSM / Integration
+      </span>
+     </div>
+    </div>
+    <div class="stats">
+     <div class="stat reveal">
+      <div>
+       <strong data-count="6" data-suffix="+">
+        0
+       </strong>
+       <span>
+        Years IAM Experience
+       </span>
+      </div>
+     </div>
+     <div class="stat reveal">
+      <div>
+       <strong data-count="3">
+        0
+       </strong>
+       <span>
+        Enterprise Identity Environments
+       </span>
+      </div>
+     </div>
+     <div class="stat reveal">
+      <div>
+       <strong data-count="2">
+        0
+       </strong>
+       <span>
+        IIQ / ISC Generations
+       </span>
+      </div>
+     </div>
+     <div class="stat reveal">
+      <div>
+       <strong data-count="100" data-suffix="%">
+        0
+       </strong>
+       <span>
+        Identity &amp; Security Focus
+       </span>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="skills-section" id="skills">
+   <div class="wrap">
+    <div class="section-title reveal">
+     Core Skills &amp; Expertise
+    </div>
+    <div class="skills">
+     <div class="skill reveal">
+      <img src="assets/skills/governance.png"/>
+      Identity Governance
+     </div>
+     <div class="skill reveal">
+      <img src="assets/skills/access.png"/>
+      Access Management
+     </div>
+     <div class="skill reveal">
+      <img src="assets/skills/lifecycle.png"/>
+      JML / NELM Lifecycle
+     </div>
+     <div class="skill reveal">
+      <img src="assets/skills/roles.png"/>
+      RBAC / ABAC / PBAC
+     </div>
+     <div class="skill reveal">
+      <img src="assets/skills/certifications.png"/>
+      Access Certifications
+     </div>
+     <div class="skill reveal">
+      <img src="assets/skills/sso.png"/>
+      SSO / SAML / OIDC
+     </div>
+     <div class="skill reveal">
+      <img src="assets/skills/oauth.png"/>
+      OAuth 2.0 / MFA / FIDO2
+     </div>
+     <div class="skill reveal">
+      <img src="assets/skills/apis.png"/>
+      SCIM / REST / SOAP / JDBC
+     </div>
+     <div class="skill reveal">
+      <img src="assets/skills/sod.png"/>
+      SoD / ITDR / Access Reviews
+     </div>
+     <div class="skill reveal">
+      <img src="assets/skills/pam.png"/>
+      PAM / JIT / Secrets
+     </div>
+     <div class="skill reveal">
+      <img src="assets/skills/automation.png"/>
+      Workflows &amp; Automation
+     </div>
+     <div class="skill reveal">
+      <img src="assets/skills/code.png"/>
+      BeanShell / Java / PowerShell
+     </div>
+     <div class="skill reveal">
+      <img src="assets/skills/connectors.png"/>
+      AD / Workday / SAP / ServiceNow
+     </div>
+     <div class="skill reveal">
+      <img src="assets/skills/compliance.png"/>
+      NIST / SOX / HIPAA / GDPR
+     </div>
+     <div class="skill reveal">
+      <img src="assets/skills/cloud.png"/>
+      AWS / Azure / Multi-Cloud IAM
+     </div>
+     <div class="skill reveal">
+      <img src="assets/skills/nhi.png"/>
+      NHIM / AI Agent Governance
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="journey-section" id="journey">
+   <div class="wrap">
+    <div class="section-title reveal">
+     My IAM Journey
+    </div>
+    <div class="journey">
+     <article class="job reveal">
+      <div class="job-head">
+       <img class="company-img" src="assets/companies/xcel.png"/>
+       <div>
+        <h3>
+         Xcel Energy
+        </h3>
+        <div class="meta">
+         Java / SailPoint Developer
+         <br/>
+         2020 &mdash; 2023
+        </div>
+       </div>
+      </div>
+      <p>
+       IIQ workflows, application onboarding, provisioning automation, Active Directory and PowerShell.
+      </p>
+     </article>
+     <article class="job reveal">
+      <div class="job-head">
+       <img class="company-img" src="assets/companies/danaher.png"/>
+       <div>
+        <h3>
+         Danaher
+        </h3>
+        <div class="meta">
+         SailPoint IIQ Developer
+         <br/>
+         2023 &mdash; 2025
+        </div>
+       </div>
+      </div>
+      <p>
+       IIQ modernization, custom rules, certifications, JML, RBAC, Okta, AD and ServiceNow integrations.
+      </p>
+     </article>
+     <article class="job reveal">
+      <div class="job-head">
+       <img class="company-img" src="assets/companies/medtronic.png"/>
+       <div>
+        <h3>
+         Medtronic
+        </h3>
+        <div class="meta">
+         IAM Engineer
+         <br/>
+         2025 &mdash; Present
+        </div>
+       </div>
+      </div>
+      <p>
+       ISC onboarding, NHIM governance, workload identities, Zero Trust, ITDR and cloud integrations.
+      </p>
+     </article>
+     <aside class="quote reveal">
+      <b>
+       &ldquo;
+      </b>
+      <p>
+       Strong identity security is the foundation of
+       <em>
+        digital trust
+       </em>
+       and resilient access.
+      </p>
+     </aside>
+    </div>
+   </div>
+  </section>
+  <section class="hobby" id="hobby">
+   <div class="wrap">
+    <div class="section-title reveal">
+     What I Build in My Free Time
+    </div>
+    <p class="hobby-note reveal">
+     These are personal experiments and hobby projects I enjoy outside IAM. They&rsquo;re here because I like building things, not because they represent my professional identity work.
+    </p>
+    <div class="projects">
+     <a class="project reveal" href="persie-tech.html">
+      <h3>
+       PersieTech
+      </h3>
+      <p>
+       A personal software and technology experiment.
+      </p>
+      <span class="tag">
+       HOBBY PROJECT
+      </span>
+      <span class="arrow">
+       &nearrow;
+      </span>
+     </a>
+     <a class="project reveal" href="ai-maze.html">
+      <h3>
+       AI Maze
+      </h3>
+      <p>
+       An interactive browser experiment around pathfinding.
+      </p>
+      <span class="tag">
+       FOR FUN
+      </span>
+      <span class="arrow">
+       &nearrow;
+      </span>
+     </a>
+     <a class="project reveal" href="expense-manager.html">
+      <h3>
+       Expense Manager
+      </h3>
+      <p>
+       A small utility for organizing personal spending.
+      </p>
+      <span class="tag">
+       UTILITY
+      </span>
+      <span class="arrow">
+       &nearrow;
+      </span>
+     </a>
+     <a class="project reveal" href="devanagari-calculator.html">
+      <h3>
+       Devanagari Calculator
+      </h3>
+      <p>
+       A calculator interface using Devanagari numerals.
+      </p>
+      <span class="tag">
+       CULTURE &times; CODE
+      </span>
+      <span class="arrow">
+       &nearrow;
+      </span>
+     </a>
+    </div>
+   </div>
+  </section>
+  <section class="contact" id="contact">
+   <div class="wrap">
+    <div class="contact-panel reveal">
+     <div>
+      <h2>
+       Let&rsquo;s build a secure
+       <br/>
+       identity future together.
+      </h2>
+      <p>
+       Open to IAM, IGA, identity security and platform engineering opportunities.
+      </p>
+     </div>
+     <div class="contact-info">
+      <span>
+       ✉ &nbsp; ajayaghimire812@gmail.com
+      </span>
+      <span>
+       &phone; &nbsp; 214-614-8104
+      </span>
+      <span>
+       &target; &nbsp; Dallas, TX
+      </span>
+     </div>
+     <div class="contact-social">
+      <a href="https://github.com/ajaya-ghimire" target="_blank">
+       <img class="social-img" src="assets/social/github.png"/>
+      </a>
+      <a href="https://www.linkedin.com/in/ghimire-ajaya24" target="_blank">
+       <img class="social-img" src="assets/social/linkedin.png"/>
+      </a>
+      <a href="mailto:ajayaghimire812@gmail.com">
+       <img class="social-img" src="assets/social/mail.png"/>
+      </a>
+     </div>
+    </div>
+   </div>
+  </section>
+  <footer>
+   &copy; 2026 Ajaya Ghimire. All rights reserved.
+  </footer>
+  <script>
+const platformData= {
+  sailpoint: {
+    title:"SailPoint IIQ / ISC",body:"My strongest IAM platform area. I’ve worked across application onboarding, source and connector configuration, aggregation and correlation, provisioning policies, certification campaigns, custom BeanShell/Java rules, workflows, lifecycle events, access requests and production troubleshooting. My current ISC work also includes non-human identity and autonomous agent governance.",tags:["IIQ 7.x / 8.x","ISC / IDN","JML","Certifications","Rules & Workflows","NHIM"]
+  },  okta: {
+    title:"Okta",body:"I’ve worked with Okta for authentication, lifecycle management and governance integration, including Workforce Identity Cloud, Universal Directory, Lifecycle Management, Workflows, Adaptive MFA, Identity Engine and SailPoint integrations.",tags:["WIC","Universal Directory","Lifecycle Management","Adaptive MFA","Workflows"]
+  },  entra: {
+    title:"Microsoft Entra ID",body:"My Entra ID work covers cloud and hybrid identity, Conditional Access, federation, RBAC and integrations with SailPoint and Active Directory.",tags:["Entra ID","Conditional Access","Azure RBAC","Federation","Hybrid Identity"]
+  },  saviynt: {
+    title:"Saviynt",body:"Saviynt is part of my broader IGA platform experience and certification background, including modern identity governance and AI-era identity security concepts.",tags:["Saviynt EIC","IGA","Identity Security","Governance"]
+  },  cyberark: {
+    title:"CyberArk",body:"My PAM experience includes CyberArk Vault, CPM, PVWA, PSM, PSMP, PTA, AIM/CCP, EPM and Conjur, plus privileged account discovery, JIT access and secrets governance.",tags:["Vault","CPM","PVWA","PSM","JIT Access","Secrets"]
+  },  aws: {
+    title:"AWS IAM",body:"My AWS identity work includes IAM governance, workload identities, AWS Organizations, secrets management and federation, including hybrid patterns governed through SailPoint.",tags:["AWS IAM","Organizations","Workload Identity","Secrets Manager","Federation"]
+  },  gcp: {
+    title:"Google Cloud IAM",body:"Google Cloud fits into my multi-cloud IAM experience around cloud identity governance, RBAC-style access control and consistent access governance across cloud environments.",tags:["GCP IAM","Cloud Governance","Multi-Cloud"]
+  },  ad: {
+    title:"Active Directory",body:"Active Directory has been a recurring part of my IAM work across application onboarding, provisioning, group governance, Windows Server, GPOs and PowerShell automation.",tags:["AD","Group Governance","GPO","PowerShell","Windows Server"]
+  },  ping: {
+    title:"Ping Identity",body:"Ping Identity is part of my authentication and federation toolkit, aligned with SAML, OAuth 2.0, OIDC, LDAP and enterprise SSO patterns.",tags:["Ping Identity","Federation","SAML","OAuth 2.0","OIDC"]
+  },  servicenow: {
+    title:"ServiceNow",body:"I’ve integrated ServiceNow with identity platforms for enterprise onboarding, access request workflows and SailPoint integration through REST and connector-based approaches.",tags:["ServiceNow","ITSM","REST","Workflow Integration","SailPoint"]
+  }
+}
 const progress=document.getElementById("progress"),introScene=document.querySelector(".intro-scene"),introFade=document.getElementById("introFade"),nav=document.getElementById("nav");
 const solarScene=document.querySelector(".solar-scene"),system=document.getElementById("system"),planets=[...document.querySelectorAll(".planet")],activePlanet=document.getElementById("activePlanet"),dots=[...document.querySelectorAll(".solar-dots i")];
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-
-function scrollFx(){
- const max=document.documentElement.scrollHeight-innerHeight;
- progress.style.width=(max?scrollY/max*100:0)+"%";
- const ir=introScene.offsetHeight-innerHeight,ip=clamp((scrollY-introScene.offsetTop)/ir,0,1);
- introFade.style.opacity=1-ip*.85;introFade.style.transform=`scale(${1+ip*.03})`;nav.classList.toggle("visible",ip>.88);
-
- if(innerWidth>820){
-   // Use absolute page scroll position so rotation always tracks the user's wheel/trackpad.
-   const solarStart=solarScene.offsetTop;
-   const solarRange=Math.max(1,solarScene.offsetHeight-innerHeight);
-   const sp=clamp((scrollY-solarStart)/solarRange,0,1);
-
-   // 0–80%: center is locked to the bottom edge, showing only the top half.
-   // 80–100%: system rises into full view.
-   const holdEnd=.80;
-
-   // Three full turns across the scene, making the movement unmistakable.
-   const rotation=sp*1080;
-
-   if(sp<=holdEnd){
-     system.style.top="100%";
-     system.style.transform=`translate(-50%,-50%) rotate(${rotation}deg)`;
-     document.querySelector(".solar-copy").style.opacity="1";
-     document.querySelector(".solar-copy").style.transform="translateX(-50%) translateY(0)";
-   }else{
-     const rp=clamp((sp-holdEnd)/(1-holdEnd),0,1);
-     const ease=rp*rp*(3-2*rp);
-
-     // Final reveal: move center from bottom edge to 68% of viewport height.
-     const centerY=100-(ease*32);
-     system.style.top=`${centerY}%`;
-     system.style.transform=`translate(-50%,-50%) rotate(${rotation}deg)`;
-
-     // Keep copy clear of the system during the final reveal.
-     document.querySelector(".solar-copy").style.opacity=String(1-ease*.92);
-     document.querySelector(".solar-copy").style.transform=`translateX(-50%) translateY(${-ease*28}px)`;
-   }
-
-   // Counter-rotate each planet so labels/logos stay upright while their positions orbit.
-   planets.forEach(p=>{
-     p.style.transform=`rotate(${-rotation}deg)`;
-   });
-
-   const idx=Math.min(planets.length-1,Math.floor(sp*planets.length));
-   planets.forEach((p,i)=>p.classList.toggle("active",i===idx));
-   activePlanet.textContent=(planets[idx].querySelector("small")?.textContent||"").toUpperCase();
-
-   const chapter=Math.min(4,Math.floor(sp*5));
-   dots.forEach((d,i)=>d.classList.toggle("on",i===chapter));
- }
+function scrollFx() {
+  const max=document.documentElement.scrollHeight-innerHeight;
+  progress.style.width=(max?scrollY/max*100:0)+"%";
+  const ir=introScene.offsetHeight-innerHeight,ip=clamp((scrollY-introScene.offsetTop)/ir,0,1);
+  introFade.style.opacity=1-ip*.85;
+  introFade.style.transform=`scale(${1+ip*.03})`;
+  nav.classList.toggle("visible",ip>.88);
+  if(innerWidth>820) {
+    // Use absolute page scroll position so rotation always tracks the user's wheel/trackpad.
+    const solarStart=solarScene.offsetTop;
+    const solarRange=Math.max(1,solarScene.offsetHeight-innerHeight);
+    const sp=clamp((scrollY-solarStart)/solarRange,0,1);
+    // 0–80%: center is locked to the bottom edge, showing only the top half.
+    // 80–100%: system rises into full view.
+    const holdEnd=.80;
+    // Three full turns across the scene, making the movement unmistakable.
+    const rotation=sp*1080;
+    if(sp<=holdEnd) {
+      system.style.top="100%";
+      system.style.transform=`translate(-50%,-50%) rotate(${rotation}deg)`;
+      document.querySelector(".solar-copy").style.opacity="1";
+      document.querySelector(".solar-copy").style.transform="translateX(-50%) translateY(0)";
+    }
+    else {
+      const rp=clamp((sp-holdEnd)/(1-holdEnd),0,1);
+      const ease=rp*rp*(3-2*rp);
+      // Final reveal: move center from bottom edge to 68% of viewport height.
+      const centerY=100-(ease*32);
+      system.style.top=`${centerY}%`;
+      system.style.transform=`translate(-50%,-50%) rotate(${rotation}deg)`;
+      // Keep copy clear of the system during the final reveal.
+      document.querySelector(".solar-copy").style.opacity=String(1-ease*.92);
+      document.querySelector(".solar-copy").style.transform=`translateX(-50%) translateY(${-ease*28}px)`;
+    }
+    // Counter-rotate each planet so labels/logos stay upright while their positions orbit.
+    planets.forEach(p=> {
+      p.style.transform=`rotate(${-rotation}deg)`;
+    }
+    );
+    const idx=Math.min(planets.length-1,Math.floor(sp*planets.length));
+    planets.forEach((p,i)=>p.classList.toggle("active",i===idx));
+    activePlanet.textContent=(planets[idx].querySelector("small")?.textContent||"").toUpperCase();
+    const chapter=Math.min(4,Math.floor(sp*5));
+    dots.forEach((d,i)=>d.classList.toggle("on",i===chapter));
+  }
 }
-addEventListener("scroll",scrollFx,{passive:true});scrollFx();
-
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add("on")}),{threshold:.14});
+addEventListener("scroll",scrollFx, {
+  passive:true
+}
+);
+scrollFx();
+const io=new IntersectionObserver(es=>es.forEach(e=> {
+  if(e.isIntersecting)e.target.classList.add("on")
+}
+), {
+  threshold:.14
+}
+);
 document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
-
-const countObs=new IntersectionObserver(es=>es.forEach(e=>{const el=e.target;if(!e.isIntersecting||el.dataset.done)return;el.dataset.done="1";const end=Number(el.dataset.count||0),suffix=el.dataset.suffix||"",start=performance.now();function tick(now){const p=Math.min(1,(now-start)/900),q=1-Math.pow(1-p,3);el.textContent=Math.round(end*q)+suffix;if(p<1)requestAnimationFrame(tick)}requestAnimationFrame(tick)}),{threshold:.55});
+const countObs=new IntersectionObserver(es=>es.forEach(e=> {
+  const el=e.target;if(!e.isIntersecting||el.dataset.done)return;el.dataset.done="1";const end=Number(el.dataset.count||0),suffix=el.dataset.suffix||"",start=performance.now();function tick(now) {
+    const p=Math.min(1,(now-start)/900),q=1-Math.pow(1-p,3);el.textContent=Math.round(end*q)+suffix;if(p<1)requestAnimationFrame(tick)
+  }
+  requestAnimationFrame(tick)
+}
+), {
+  threshold:.55
+}
+);
 document.querySelectorAll("[data-count]").forEach(el=>countObs.observe(el));
-
 const modal=document.getElementById("modal"),modalClose=document.getElementById("modalClose"),modalTitle=document.getElementById("modalTitle"),modalBody=document.getElementById("modalBody"),modalTags=document.getElementById("modalTags");
-function openPlatform(key){const d=platformData[key];if(!d)return;modalTitle.textContent=d.title;modalBody.textContent=d.body;modalTags.innerHTML=d.tags.map(t=>`<span>${t}</span>`).join("");modal.classList.add("open");document.body.style.overflow="hidden"}
-function closeModal(){modal.classList.remove("open");document.body.style.overflow=""}
-planets.forEach(p=>p.addEventListener("click",e=>{e.stopPropagation();openPlatform(p.dataset.key)}));modalClose.addEventListener("click",closeModal);modal.addEventListener("click",e=>{if(e.target===modal)closeModal()});addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
-
-const canvas=document.getElementById("stars"),ctx=canvas.getContext("2d");let pts=[],dpr=1;
-function resize(){dpr=Math.min(devicePixelRatio||1,2);canvas.width=innerWidth*dpr;canvas.height=innerHeight*dpr;canvas.style.width=innerWidth+"px";canvas.style.height=innerHeight+"px";ctx.setTransform(dpr,0,0,dpr,0,0);const count=Math.min(130,Math.max(55,Math.floor(innerWidth/10)));pts=Array.from({length:count},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.03,vy:(Math.random()-.5)*.03,r:Math.random()*1.05+.2,a:Math.random()*.25+.05}))}
-function draw(){ctx.clearRect(0,0,innerWidth,innerHeight);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=innerWidth;if(p.x>innerWidth)p.x=0;if(p.y<0)p.y=innerHeight;if(p.y>innerHeight)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(125,201,255,${p.a})`;ctx.fill()});requestAnimationFrame(draw)}
-addEventListener("resize",resize);resize();draw();
+function openPlatform(key) {
+  const d=platformData[key];
+  if(!d)return;
+  modalTitle.textContent=d.title;
+  modalBody.textContent=d.body;
+  modalTags.innerHTML=d.tags.map(t=>`<span>${t}</span>`).join("");
+  modal.classList.add("open");
+  document.body.style.overflow="hidden"
+}
+function closeModal() {
+  modal.classList.remove("open");
+  document.body.style.overflow=""
+}
+planets.forEach(p=>p.addEventListener("click",e=> {
+  e.stopPropagation();openPlatform(p.dataset.key)
+}
+));
+modalClose.addEventListener("click",closeModal);
+modal.addEventListener("click",e=> {
+  if(e.target===modal)closeModal()
+}
+);
+addEventListener("keydown",e=> {
+  if(e.key==="Escape")closeModal()
+}
+);
+const canvas=document.getElementById("stars"),ctx=canvas.getContext("2d");
+let pts=[],dpr=1;
+function resize() {
+  dpr=Math.min(devicePixelRatio||1,2);
+  canvas.width=innerWidth*dpr;
+  canvas.height=innerHeight*dpr;
+  canvas.style.width=innerWidth+"px";
+  canvas.style.height=innerHeight+"px";
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  const count=Math.min(130,Math.max(55,Math.floor(innerWidth/10)));
+  pts=Array.from( {
+    length:count
+  },()=>( {
+    x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.03,vy:(Math.random()-.5)*.03,r:Math.random()*1.05+.2,a:Math.random()*.25+.05
+  }
+  ))
+}
+function draw() {
+  ctx.clearRect(0,0,innerWidth,innerHeight);
+  pts.forEach(p=> {
+    p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=innerWidth;if(p.x>innerWidth)p.x=0;if(p.y<0)p.y=innerHeight;if(p.y>innerHeight)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(125,201,255,${p.a})`;ctx.fill()
+  }
+  );
+  requestAnimationFrame(draw)
+}
+addEventListener("resize",resize);
+resize();
+draw();
 </script>
-</body>
+ </body>
 </html>
